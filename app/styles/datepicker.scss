@@ -1,0 +1,45 @@
+.datepicker-other-month {
+	color: #bbb;
+}
+
+.datepicker-today {
+	background-color: orange;
+}
+
+#datepicker-calendar {
+	margin-top: 30px;
+}
+
+.datepicker-calendar-day {
+	cursor: pointer;
+
+	&:hover {
+		background-color: #eee;
+	}
+}
+
+.datepicker-selected {
+	background-color: red;
+
+	&:hover {
+		background-color: #FF5555;
+	}
+}
+
+.datepicker-buttons .btn {
+	margin-bottom: 10px;
+}
+
+#datepicker-selected-label {
+	font-weight: bold;
+	text-align: center;
+}
+
+#datepicker-time {
+	font-size: 25px;
+
+	.form-control {
+		display: inline-block;
+		width: auto;
+	}
+}

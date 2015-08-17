@@ -1,0 +1,33 @@
+{
+  "name": "angular-date-picker",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "~1.4.3",
+    "bootstrap-sass-official": "~3.2.0",
+    "angular-bootstrap": "~0.13.3",
+    "angular-dateParser": "dnasir/angular-dateParser#~1.0.12"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.3"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  },
+  "ignore": [
+    ".gitignore",
+    "README.md",
+    "app",
+    ".travis.yml",
+    "test",
+    ".editorconfig",
+    ".jshintrc",
+    "Gruntfile.js",
+    "package.json"
+  ]
+}
