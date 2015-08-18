@@ -38,8 +38,15 @@
 #datepicker-time {
 	font-size: 25px;
 
-	.form-control {
-		display: inline-block;
-		width: auto;
+	select {
+		border: 1px solid #ccc;
+		height: 50px;
 	}
+}
+
+#datepicker-calendar-wrapper,
+#datepicker-time {
+	display: inline-block;
+	float: none;
+	vertical-align: middle;
 }
