@@ -268,7 +268,7 @@ module.exports = function (grunt) {
 				separator: '\n'
 			},
 			js: {
-				src: ['<%= yeoman.app %>/scripts/{directives,controllers,filters}/*.js', '<%= yeoman.tmp %>/templates.js',
+				src: ['<%= yeoman.app %>/scripts/{directives,controllers,filters,services}/*.js', '<%= yeoman.tmp %>/templates.js',
 					'!<%= yeoman.app %>/scripts/controllers/demo.js'],
 				dest: '<%= yeoman.dist %>/index.js',
 				options: {

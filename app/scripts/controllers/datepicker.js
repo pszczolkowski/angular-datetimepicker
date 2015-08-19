@@ -19,14 +19,16 @@
 		.module('pszczolkowski.datePicker')
 		.controller('DatePickerCtrl' , DatePickerCtrl);
 
-	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'selectedDay', 'minuteStep', 'dateMin', 'dateMax', 'hourMin', 'hourMax'];
+	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'datePickerConfig', 'selectedDay', 'minuteStep', 'dateMin', 'dateMax', 'hourMin', 'hourMax'];
 
-	function DatePickerCtrl($scope, $modalInstance, selectedDay, minuteStep, dateMin, dateMax, hourMin, hourMax) {
+	function DatePickerCtrl($scope, $modalInstance, datePickerConfig, selectedDay, minuteStep, dateMin, dateMax, hourMin, hourMax) {
+		dateMin = dateMin || datePickerConfig.minimumDate;
+		dateMax = dateMax || datePickerConfig.maximumDate;
 		if (hourMin === undefined) {
-			hourMin = 0;
+			hourMin = datePickerConfig.minimumHour;
 		}
 		if (hourMax === undefined) {
-			hourMax = 23;
+			hourMax = datePickerConfig.maximumHour;
 		}
 		if (hourMin > hourMax) {
 			throw 'Minimum hour constraint can\'t be grater than maximum hour constraint';
@@ -241,8 +243,8 @@
 
 		this.month = date.getMonth();
 		this.year = date.getFullYear();
-		this.minimumDate = minimumDate || new Date(1900, 0, 1);
-		this.maximumDate = maximumDate || new Date(2099, 11, 31, 23, 59);
+		this.minimumDate = minimumDate;
+		this.maximumDate = maximumDate;
 		this.minusMonth = minusMonth;
 		this.plusMonth = plusMonth;
 		this.setMonth = setMonth;

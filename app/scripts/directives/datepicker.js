@@ -1,15 +1,13 @@
 (function () {
 	'use strict';
 
-	var DEFAULT_DATE_FORMAT = 'yyyy-MM-dd';
-
 	angular
 		.module('pszczolkowski.datePicker')
 		.directive('datePicker', datePicker);
 
-	datePicker.$inject = ['$modal'];
+	datePicker.$inject = ['$modal', 'datePickerConfig'];
 
-	function datePicker($modal) {
+	function datePicker($modal, datePickerConfig) {
 		return {
 			scope: {
 				ngModel: '=',
@@ -31,7 +29,7 @@
 
 
 		function controller($scope) {
-			$scope.minuteStep = $scope.minuteStep || 15;
+			$scope.minuteStep = $scope.minuteStep || datePickerConfig.minuteStep;
 			$scope.pickDate = pickDate;
 
 			var hourMin = $scope.hourMin ? parseInt($scope.hourMin, 10) : undefined;

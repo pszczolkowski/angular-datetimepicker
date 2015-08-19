@@ -1,15 +1,13 @@
 (function(){
 	'use strict';
 
-	var DEFAULT_DATE_FORMAT = 'yyyy-MM-dd';
-
 	angular
 		.module('pszczolkowski.datePicker')
 		.directive('datePickerInput', datePickerInput);
 
-	datePickerInput.$inject = ['$dateParser', 'dateFilter'];
+	datePickerInput.$inject = ['$dateParser', 'dateFilter', 'datePickerConfig'];
 
-	function datePickerInput($dateParser, dateFilter) {
+	function datePickerInput($dateParser, dateFilter, datePickerConfig) {
 		return {
 			scope: {
 				ngModel: '=',
@@ -23,7 +21,7 @@
 					if (scope.dateFormat) {
 						date =  $dateParser(dateString, scope.dateFormat);
 					} else {
-						date = $dateParser(dateString, DEFAULT_DATE_FORMAT);
+						date = $dateParser(dateString, datePickerConfig.dateFormat);
 					}
 
 					return date === undefined ? dateString : date;
@@ -33,7 +31,7 @@
 					if (scope.dateFormat) {
 						return dateFilter(date, scope.dateFormat);
 					} else {
-						return dateFilter(date, DEFAULT_DATE_FORMAT);
+						return dateFilter(date, datePickerConfig.dateFormat);
 					}
 				});
 			}
