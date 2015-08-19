@@ -1,41 +1,45 @@
 (function(){
 	'use strict';
 
+	var MONTHS = [
+		{num: 0, month: 'January'},
+		{num: 1, month: 'February'},
+		{num: 2, month: 'March'},
+		{num: 3, month: 'April'},
+		{num: 4, month: 'May'},
+		{num: 5, month: 'June'},
+		{num: 6, month: 'July'},
+		{num: 7, month: 'August'},
+		{num: 8, month: 'September'},
+		{num: 9, month: 'October'},
+		{num: 10, month: 'November'},
+		{num: 11, month: 'December'}];
+
 	angular
 		.module('pszczolkowski.datePicker')
 		.controller('DatePickerCtrl' , DatePickerCtrl);
 
-	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'selectedDay'];
+	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'selectedDay', 'minuteStep', 'dateMin', 'dateMax'];
 
-	function DatePickerCtrl($scope, $modalInstance, selectedDay) {
+	function DatePickerCtrl($scope, $modalInstance, selectedDay, minuteStep, dateMin, dateMax) {
 		$scope.today = new Day(new Date());
 		$scope.selectedDay = isDaySelected() ? new Day(selectedDay) : undefined;
 		$scope.selectedTime = {
 			hour: (new Date()).getHours(),
-			minute: roundMinute(new Date(), 15)
+			minute: roundMinute(new Date(), minuteStep)
 		};
-		$scope.date = new Calendar($scope.selectedDay);
+		$scope.date = new Calendar($scope.selectedDay, dateMin, dateMax);
+		$scope.minimumDate = dateMin;
+		$scope.maximumDate = dateMax;
 		$scope.years = [];
-		$scope.months = [
-		    {num: 0, month: 'January'},
-		    {num: 1, month: 'February'},
-		    {num: 2, month: 'March'},
-		    {num: 3, month: 'April'},
-		    {num: 4, month: 'May'},
-		    {num: 5, month: 'June'},
-		    {num: 6, month: 'July'},
-		    {num: 7, month: 'August'},
-		    {num: 8, month: 'September'},
-		    {num: 9, month: 'October'},
-		    {num: 10, month: 'November'},
-		    {num: 11, month: 'December'}];
+		$scope.months = [];
 		$scope.weeks = [];
 		$scope.hours = [];
 		$scope.minutes = [];
 		$scope.monthChange = monthChange;
 		$scope.yearChange = yearChange;
 		$scope.selectDay = selectDay;
-		$scope.selectToday = selectToday
+		$scope.selectToday = selectToday;
 		$scope.clear = clear;
 		$scope.pick = pick;
 		$scope.minusHour = minusHour;
@@ -43,14 +47,14 @@
 		$scope.minusMinute = minusMinute;
 		$scope.plusMinute = plusMinute;
 
-
-		for (var i = $scope.today.year + 5 ; i >= 1900 ; i--) {
+		updateMonths();
+		for (var i = Math.min($scope.today.year + 5, $scope.date.maximumDate.getFullYear()) ; i >= $scope.date.minimumDate.getFullYear() ; i--) {
 			$scope.years.push(i);
 		}
 		for (var i = 23; i >= 0; i--) {
 			$scope.hours.push(i);
 		}
-		for (var i = 45; i >= 0 ; i -= 15) {
+		for (var i = 60 - minuteStep; i >= 0 ; i -= minuteStep) {
 			$scope.minutes.push(i);
 		}
 
@@ -58,6 +62,7 @@
 		$scope.date.onChange(function() {
 			prepareWeeksForView();
 			updateYears();
+			updateMonths();
 		});
 
 		function isDaySelected() {
@@ -77,6 +82,21 @@
 				for (var year = $scope.years[0] ; year <= $scope.date.year; year++) {
 					$scope.years.unshift(year);
 				}
+			}
+		}
+
+		function updateMonths() {
+			$scope.months = [];
+
+			for (var i = 0; i < MONTHS.length; i++) {
+				if ($scope.date.year === dateMin.getFullYear() && MONTHS[i].num < dateMin.getMonth()) {
+					continue;
+				}
+				if ($scope.date.year === dateMax.getFullYear() && MONTHS[i].num > dateMax.getMonth()) {
+					continue
+				}
+
+				$scope.months.push(MONTHS[i]);
 			}
 		}
 
@@ -115,6 +135,10 @@
 		}
 
 		function selectDay(day) {
+			if (day.before($scope.minimumDate) || day.after($scope.maximumDate)) {
+				return;
+			}
+
 			$scope.selectedDay = day;
 			if ($scope.selectedDay.month !== $scope.date.month) {
 				$scope.date.setMonth($scope.selectedDay.month);
@@ -165,11 +189,11 @@
 		}
 
 		function minusMinute() {
-			addMinutes(-15);
+			addMinutes(-minuteStep);
 		}
 
 		function plusMinute() {
-			addMinutes(15);
+			addMinutes(minuteStep);
 		}
 
 		function roundMinute(date, minuteStep) {
@@ -180,13 +204,15 @@
 		}
 	}
 
-	function Calendar(forDay) {
+	function Calendar(forDay, minimumDate, maximumDate) {
 		var date = getDate(forDay);
 		var self = this;
+		var listeners = [];
 
 		this.month = date.getMonth();
 		this.year = date.getFullYear();
-
+		this.minimumDate = minimumDate || new Date(1900, 0, 1);
+		this.maximumDate = maximumDate || new Date(2099, 11, 31, 23, 59);
 		this.minusMonth = minusMonth;
 		this.plusMonth = plusMonth;
 		this.setMonth = setMonth;
@@ -194,8 +220,6 @@
 		this.plusYear = plusYear;
 		this.setYear = setYear;
 		this.onChange = onChange;
-
-		var listeners = [];
 
 
 		function getDate(forDay) {
@@ -225,6 +249,7 @@
 		function addMonths(quantity) {
 			date.setMonth(date.getMonth() + quantity);
 
+			validateDateConstraints();
 			synchronizeFieldsWithDate();
 			changed();
 		}
@@ -243,8 +268,18 @@
 			addYears(1);
 		}
 
+		function validateDateConstraints() {
+			if (date < self.minimumDate) {
+				date.setTime(self.minimumDate.getTime());
+			} else if (date > self.maximumDate.getTime()) {
+				date.setTime(self.maximumDate.getTime());
+			}
+		}
+
 		function addYears(quantity) {
 			date.setYear(date.getFullYear() + quantity);
+
+			validateDateConstraints();
 			synchronizeFieldsWithDate();
 			changed();
 		}
@@ -279,5 +314,23 @@
 		return this.day === day.day &&
 			this.month === day.month &&
 			this.year === day.year;
+	}
+	Day.prototype.before = function(date) {
+		var dayDate = new Date();
+		dayDate.setTime(date.getTime());
+		dayDate.setFullYear(this.year);
+		dayDate.setMonth(this.month);
+		dayDate.setDate(this.day);
+
+		return dayDate < date;
+	};
+	Day.prototype.after = function(date) {
+		var dayDate = new Date();
+		dayDate.setTime(date.getTime());
+		dayDate.setFullYear(this.year);
+		dayDate.setMonth(this.month);
+		dayDate.setDate(this.day);
+
+		return dayDate > date;
 	}
 })();

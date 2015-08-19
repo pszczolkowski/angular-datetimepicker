@@ -1,17 +1,22 @@
 (function(){
 	'use strict';
 
+	var DEFAULT_DATE_FORMAT = 'yyyy-MM-dd';
+
 	angular
 		.module('pszczolkowski.datePicker')
 		.directive('datePicker', datePicker);
 
-	datePicker.$inject = ['$modal', 'dateFilter'];
+	datePicker.$inject = ['$modal'];
 
-	function datePicker($modal, dateFilter) {
+	function datePicker($modal) {
 		return {
 			scope: {
 				ngModel: '=',
-				dateFormat: '@'
+				dateFormat: '@',
+				dateMin: '=',
+				dateMax: '=',
+				minuteStep: '='
 			},
 			require: 'ngModel',
 			templateUrl: 'templates/datepicker.html',
@@ -24,8 +29,8 @@
 
 
 		function controller($scope) {
+			$scope.minuteStep = $scope.minuteStep || 15;
 			$scope.pickDate = pickDate;
-
 
 			function pickDate() {
 				var modalInstance = $modal.open({
@@ -35,6 +40,15 @@
 					resolve: {
 						selectedDay: function() {
 							return $scope.ngModel;
+						},
+						minuteStep: function() {
+							return $scope.minuteStep;
+						},
+						dateMin: function() {
+							return $scope.dateMin;
+						},
+						dateMax: function() {
+							return $scope.dateMax;
 						}
 					}
 				});
@@ -51,6 +65,10 @@
 					// tODO
 				});
 			}
+		}
+
+		function isDate(object) {
+			return Object.prototype.toString.call(object) === '[object Date]';
 		}
 	}
 })();

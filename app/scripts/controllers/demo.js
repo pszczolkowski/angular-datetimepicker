@@ -9,6 +9,8 @@
 
 	function DemoCtrl($scope) {
 		$scope.date = new Date();
+		$scope.dateMin = new Date(2015, 7, 10);
+		$scope.dateMax = new Date(2015, 8, 3);
 	}
 })();
 

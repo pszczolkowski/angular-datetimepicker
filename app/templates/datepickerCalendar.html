@@ -6,7 +6,8 @@
 			<div class="input-group">
 				<span class="input-group-btn">
 					<button class="btn btn-default"
-							ng-click="date.minusMonth()">
+							ng-click="date.minusMonth()"
+							ng-disabled="date.month === date.minimumDate.getMonth() && date.year === date.minimumDate.getFullYear()">
 							<span class="glyphicon glyphicon-chevron-left"></span>
 					</button>
 				</span>
@@ -19,7 +20,8 @@
 
 				<span class="input-group-btn">
 					<button class="btn btn-default"
-							ng-click="date.plusMonth()">
+							ng-click="date.plusMonth()"
+							ng-disabled="date.month === date.maximumDate.getMonth() && date.year === date.maximumDate.getFullYear()">
 							<span class="glyphicon glyphicon-chevron-right"></span>
 					</button>
 				</span>
@@ -30,7 +32,8 @@
 			<div class="input-group">
 				<span class="input-group-btn">
 					<button class="btn btn-default"
-							ng-click="date.minusYear()">
+							ng-click="date.minusYear()"
+							ng-disabled="date.year === date.minimumDate.getFullYear()">
 							<span class="glyphicon glyphicon-chevron-left"></span>
 					</button>
 				</span>
@@ -44,7 +47,8 @@
 
 				<span class="input-group-btn">
 					<button class="btn btn-default"
-							ng-click="date.plusYear()">
+							ng-click="date.plusYear()"
+							ng-disabled="date.year === date.maximumDate.getFullYear()">
 							<span class="glyphicon glyphicon-chevron-right"></span>
 					</button>
 				</span>
@@ -73,7 +77,8 @@
 						class="datepicker-calendar-day"
 						ng-class="{'datepicker-other-month': day.month !== date.month,
 							   'datepicker-today': today.equals(day),
-							   'datepicker-selected': day.equals(selectedDay)}"
+							   'datepicker-selected': day.equals(selectedDay),
+							   'datepicker-disabled': day.before(minimumDate) || day.after(maximumDate)}"
 						ng-click="selectDay(day)">
 						{{day.day}}
 					</td>

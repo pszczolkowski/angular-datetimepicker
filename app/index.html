@@ -18,7 +18,7 @@
 <body ng-app="pszczolkowski.datePicker">
 
 	<div ng-controller="DemoCtrl">
-		<input type="text" date-picker ng-model="date" />
+		<input type="text" date-picker ng-model="date" minute-step="1" date-min="dateMin" date-max="dateMax" />
 	</div>
 
 	<!-- build:js(.) scripts/vendor.js -->
