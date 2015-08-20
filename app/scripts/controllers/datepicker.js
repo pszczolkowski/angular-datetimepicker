@@ -55,6 +55,7 @@
 		$scope.selectToday = selectToday;
 		$scope.clear = clear;
 		$scope.pick = pick;
+		$scope.cancel = cancel;
 		$scope.minusHour = minusHour;
 		$scope.plusHour = plusHour;
 		$scope.minusMinute = minusMinute;
@@ -238,6 +239,10 @@
 			var rounded = minuteStep * Math.round(minute / minuteStep);
 
 			return rounded > 59 ? 0 : rounded;
+		}
+
+		function cancel() {
+			$modalInstance.dismiss('cancel');
 		}
 	}
 

@@ -46,8 +46,6 @@
 						$scope.ngModel = date;
 					}
 				}
-			}, function (error) {
-				console.log(error);
 			});
 		}
 	}
