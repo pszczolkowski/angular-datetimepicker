@@ -54,7 +54,7 @@
 		$scope.selectDay = selectDay;
 		$scope.selectToday = selectToday;
 		$scope.clear = clear;
-		$scope.pick = pick;
+		$scope.confirm = confirm;
 		$scope.cancel = cancel;
 		$scope.minusHour = minusHour;
 		$scope.plusHour = plusHour;
@@ -185,7 +185,7 @@
 			$scope.selectedDay = undefined;
 		}
 
-		function pick() {
+		function confirm() {
 			var selectedDate = null;
 
 			if ($scope.selectedDay !== undefined) {
