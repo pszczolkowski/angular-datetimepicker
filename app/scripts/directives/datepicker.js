@@ -13,71 +13,15 @@
 				ngModel: '=',
 				dateFormat: '@',
 				dateMin: '=',
-				dateMax: '=',
-				hourMin: '@',
-				hourMax: '@',
-				minuteStep: '='
+				dateMax: '='
 			},
 			require: 'ngModel',
 			templateUrl: 'templates/datepicker.html',
 			replace: true,
-			link: function (scope, elem, attr, ngModelController) {
-
+			link: function (scope) {
+				scope.pickType = 'date';
 			},
-			controller: ['$scope', controller]
+			controller: 'DateTimePickerCtrl'
 		};
-
-
-		function controller($scope) {
-			$scope.minuteStep = $scope.minuteStep || datePickerConfig.minuteStep;
-			$scope.pickDate = pickDate;
-
-			var hourMin = $scope.hourMin ? parseInt($scope.hourMin, 10) : undefined;
-			var hourMax = $scope.hourMax ? parseInt($scope.hourMax, 10) : undefined;
-
-			function pickDate() {
-				var modalInstance = $modal.open({
-					size: 'md',
-					templateUrl: 'templates/datepickerCalendar.html',
-					controller: 'DatePickerCtrl',
-					resolve: {
-						selectedDay: function () {
-							return $scope.ngModel;
-						},
-						minuteStep: function () {
-							return $scope.minuteStep;
-						},
-						dateMin: function () {
-							return $scope.dateMin;
-						},
-						dateMax: function () {
-							return $scope.dateMax;
-						},
-						hourMin: function () {
-							return hourMin;
-						},
-						hourMax: function () {
-							return hourMax;
-						}
-					}
-				});
-
-				modalInstance.result.then(function (date) {
-					if (date !== undefined) {
-						if (date === null) {
-							$scope.ngModel = undefined;
-						} else {
-							$scope.ngModel = date;
-						}
-					}
-				}, function (error) {
-					// TODO
-				});
-			}
-		}
-
-		function isDate(object) {
-			return Object.prototype.toString.call(object) === '[object Date]';
-		}
 	}
 })();

@@ -10,30 +10,43 @@
 	function datePickerInput($dateParser, dateFilter, datePickerConfig) {
 		return {
 			scope: {
-				ngModel: '=',
-				dateFormat: '@'
+				dateFormat: '@',
+				datePickerInput: '='
 			},
 			require: 'ngModel',
 			link: function(scope, elem, attr, ngModelController) {
-				ngModelController.$parsers.push(function(dateString) {
-					var date = undefined;
+				var format = scope.dateFormat;
 
-					if (scope.dateFormat) {
-						date =  $dateParser(dateString, scope.dateFormat);
-					} else {
-						date = $dateParser(dateString, datePickerConfig.dateFormat);
+				if (ngModelController) {
+					ngModelController.$parsers.push(function(dateString) {
+						selectFormat();
+
+						var date = $dateParser(dateString, format);
+						return date === undefined ? dateString : date;
+					});
+
+					ngModelController.$formatters.push(function(date) {
+						selectFormat();
+						return dateFilter(date, format);
+					});
+				}
+
+
+				function selectFormat () {
+					if (!format) {
+						switch (scope.datePickerInput) {
+							case 'date':
+								format = datePickerConfig.dateFormat;
+								break;
+							case 'datetime':
+								format = datePickerConfig.dateTimeFormat;
+								break;
+							case 'time':
+								format = datePickerConfig.timeFormat;
+								break;
+						}
 					}
-
-					return date === undefined ? dateString : date;
-				});
-
-				ngModelController.$formatters.push(function(date) {
-					if (scope.dateFormat) {
-						return dateFilter(date, scope.dateFormat);
-					} else {
-						return dateFilter(date, datePickerConfig.dateFormat);
-					}
-				});
+				}
 			}
 		};
 	}

@@ -18,7 +18,11 @@
 <body ng-app="pszczolkowski.datePicker">
 
 	<div ng-controller="DemoCtrl">
-		<input type="text" date-picker ng-model="date" date-min="dateMin" date-max="dateMax" hour-min="12" hour-max="19" />
+		<input date-picker ng-model="date" date-min="dateMin" date-max="dateMax" hour-min="12" hour-max="19" />
+
+		<input date-time-picker ng-model="date" date-min="dateMin" date-max="dateMax" hour-min="12" hour-max="19" />
+
+		<input time-picker ng-model="date" />
 	</div>
 
 	<!-- build:js(.) scripts/vendor.js -->
@@ -45,11 +49,14 @@
 	<script src="bower_components/angular-dateParser/dateparser.js"></script>
 	<script src="scripts/app.js"></script>
 	<script src="scripts/controllers/datepicker.js"></script>
+	<script src="scripts/controllers/dateTimePicker.js"></script>
 	<script src="scripts/directives/datepicker.js"></script>
 	<script src="scripts/directives/datepickerInput.js"></script>
 	<script src="scripts/controllers/demo.js"></script>
 	<script src="scripts/filters/leadingzeros.js"></script>
 	<script src="scripts/services/datepickerConfig.js"></script>
+	<script src="scripts/directives/datetimepicker.js"></script>
+	<script src="scripts/directives/timepicker.js"></script>
 	<!-- endbuild -->
 </body>
 </html>

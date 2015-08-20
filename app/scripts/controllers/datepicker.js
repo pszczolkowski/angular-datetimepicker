@@ -19,9 +19,9 @@
 		.module('pszczolkowski.datePicker')
 		.controller('DatePickerCtrl' , DatePickerCtrl);
 
-	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'datePickerConfig', 'selectedDay', 'minuteStep', 'dateMin', 'dateMax', 'hourMin', 'hourMax'];
+	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'datePickerConfig', 'pickType', 'selectedDay', 'minuteStep', 'dateMin', 'dateMax', 'hourMin', 'hourMax'];
 
-	function DatePickerCtrl($scope, $modalInstance, datePickerConfig, selectedDay, minuteStep, dateMin, dateMax, hourMin, hourMax) {
+	function DatePickerCtrl($scope, $modalInstance, datePickerConfig, pickType, selectedDay, minuteStep, dateMin, dateMax, hourMin, hourMax) {
 		dateMin = dateMin || datePickerConfig.minimumDate;
 		dateMax = dateMax || datePickerConfig.maximumDate;
 		if (hourMin === undefined) {
@@ -34,6 +34,7 @@
 			throw 'Minimum hour constraint can\'t be grater than maximum hour constraint';
 		}
 
+		$scope.pickType = pickType;
 		$scope.today = new Day(new Date());
 		$scope.selectedDay = isDaySelected() ? new Day(selectedDay) : undefined;
 		$scope.selectedTime = {
