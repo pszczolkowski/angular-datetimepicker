@@ -23,7 +23,7 @@
 					pickType: function () {
 						return $scope.pickType;
 					},
-					selectedDay: function () {
+					selectedDate: function () {
 						return $scope.ngModel;
 					},
 					constraints: function () {

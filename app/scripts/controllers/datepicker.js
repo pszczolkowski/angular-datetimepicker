@@ -19,9 +19,9 @@
 		.module('pszczolkowski.datePicker')
 		.controller('DatePickerCtrl' , DatePickerCtrl);
 
-	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'datePickerConfig', 'pickType', 'selectedDay', 'constraints'];
+	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'datePickerConfig', 'pickType', 'selectedDate', 'constraints'];
 
-	function DatePickerCtrl($scope, $modalInstance, datePickerConfig, pickType, selectedDay, constraints) {
+	function DatePickerCtrl($scope, $modalInstance, datePickerConfig, pickType, selectedDate, constraints) {
 		constraints.dateMin = constraints.dateMin || datePickerConfig.minimumDate;
 		constraints.dateMax = constraints.dateMax || datePickerConfig.maximumDate;
 		if (constraints.hourMin === undefined) {
@@ -36,10 +36,10 @@
 
 		$scope.pickType = pickType;
 		$scope.today = new Day(new Date());
-		$scope.selectedDay = isDaySelected() ? new Day(selectedDay) : undefined;
+		$scope.selectedDay = isDaySelected() ? new Day(selectedDate) : undefined;
 		$scope.selectedTime = {
-			hour: roundHourToFulfillConstraints(constraints.hourMin, constraints.hourMax),
-			minute: roundMinute(new Date(), constraints.minuteStep)
+			hour: roundHourToFulfillConstraints(selectedDate, constraints.hourMin, constraints.hourMax),
+			minute: roundMinute(selectedDate, constraints.minuteStep)
 		};
 		$scope.date = new Calendar($scope.selectedDay, constraints.dateMin, constraints.dateMax);
 		$scope.minimumDate = constraints.dateMin;
@@ -78,8 +78,9 @@
 			updateMonths();
 		});
 
-		function roundHourToFulfillConstraints(hourMin, hourMax) {
-			var hour = (new Date()).getHours();
+		function roundHourToFulfillConstraints(date, hourMin, hourMax) {
+			date = date || new Date();
+			var hour = date.getHours();
 			if (hour < hourMin) {
 				hour = hourMin;
 			} else if (hour > hourMax) {
@@ -90,7 +91,7 @@
 		}
 
 		function isDaySelected() {
-			return selectedDay !== undefined && typeof selectedDay !== 'string';
+			return selectedDate !== undefined && typeof selectedDate !== 'string';
 		}
 
 		function monthChange() {
@@ -190,7 +191,9 @@
 				selectedDate = new Date(
 					$scope.selectedDay.year,
 					$scope.selectedDay.month,
-					$scope.selectedDay.day);
+					$scope.selectedDay.day,
+					$scope.selectedTime.hour,
+					$scope.selectedTime.minute);
 			}
 
 			$modalInstance.close(selectedDate);
@@ -230,6 +233,7 @@
 		}
 
 		function roundMinute(date, minuteStep) {
+			date = date || new Date();
 			var minute = date.getMinutes();
 			var rounded = minuteStep * Math.round(minute / minuteStep);
 
