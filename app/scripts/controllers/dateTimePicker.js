@@ -26,20 +26,14 @@
 					selectedDay: function () {
 						return $scope.ngModel;
 					},
-					minuteStep: function () {
-						return $scope.minuteStep;
-					},
-					dateMin: function () {
-						return $scope.dateMin;
-					},
-					dateMax: function () {
-						return $scope.dateMax;
-					},
-					hourMin: function () {
-						return hourMin;
-					},
-					hourMax: function () {
-						return hourMax;
+					constraints: function () {
+						return {
+							minuteStep: $scope.minuteStep,
+							dateMin: $scope.dateMin,
+							dateMax: $scope.dateMax,
+							hourMin: hourMin,
+							hourMax: hourMax
+						};
 					}
 				}
 			});
