@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
+		.module('pszczolkowski.dateTimePicker')
 		.filter('leadingZeros', leadingZeros);
 
 	function leadingZeros() {

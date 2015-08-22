@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
+		.module('pszczolkowski.dateTimePicker')
 		.controller('DemoCtrl', DemoCtrl);
 
 	DemoCtrl.$inject = ['$scope'];

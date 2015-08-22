@@ -2,13 +2,13 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
+		.module('pszczolkowski.dateTimePicker')
 		.controller('DateTimePickerCtrl', DateTimePickerCtrl);
 
-	DateTimePickerCtrl.$inject = ['$scope', '$modal', 'datePickerConfig'];
+	DateTimePickerCtrl.$inject = ['$scope', '$modal', 'dateTimePickerConfig'];
 
-	function DateTimePickerCtrl($scope, $modal, datePickerConfig) {
-		$scope.minuteStep = $scope.minuteStep || datePickerConfig.minuteStep;
+	function DateTimePickerCtrl($scope, $modal, dateTimePickerConfig) {
+		$scope.minuteStep = $scope.minuteStep || dateTimePickerConfig.minuteStep;
 		$scope.pickDate = pickDate;
 
 		var hourMin = $scope.hourMin ? parseInt($scope.hourMin, 10) : undefined;
@@ -17,8 +17,8 @@
 		function pickDate() {
 			var modalInstance = $modal.open({
 				size: 'md',
-				templateUrl: 'templates/datepickerCalendar.html',
-				controller: 'DatePickerCtrl',
+				templateUrl: 'templates/dateTimePickerModal.html',
+				controller: 'DateTimePickerModalCtrl',
 				resolve: {
 					pickType: function () {
 						return $scope.pickType;

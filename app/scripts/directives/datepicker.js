@@ -2,12 +2,12 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
+		.module('pszczolkowski.dateTimePicker')
 		.directive('datePicker', datePicker);
 
-	datePicker.$inject = ['$modal', 'datePickerConfig'];
+	datePicker.$inject = ['$modal', 'dateTimePickerConfig'];
 
-	function datePicker($modal, datePickerConfig) {
+	function datePicker($modal, dateTimePickerConfig) {
 		return {
 			scope: {
 				ngModel: '=',
@@ -16,7 +16,7 @@
 				dateMax: '='
 			},
 			require: 'ngModel',
-			templateUrl: 'templates/datepicker.html',
+			templateUrl: 'templates/dateTimePickerInput.html',
 			replace: true,
 			link: function (scope) {
 				scope.pickType = 'date';

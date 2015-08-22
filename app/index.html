@@ -12,10 +12,10 @@
 	<!-- endbuild -->
 	<!-- build:css(.tmp) styles/main.css -->
 	<link rel="stylesheet" href="styles/main.css">
-	<link rel="stylesheet" href="styles/datepicker.css">
+	<link rel="stylesheet" href="styles/datetimepicker.css">
 	<!-- endbuild -->
 </head>
-<body ng-app="pszczolkowski.datePicker">
+<body ng-app="pszczolkowski.dateTimePicker">
 
 	<div ng-controller="DemoCtrl">
 		<input date-picker ng-model="date" date-min="dateMin" date-max="dateMax" hour-min="12" hour-max="19" />
@@ -48,17 +48,17 @@
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="bower_components/angular-dateParser/dateparser.js"></script>
 	<script src="scripts/app.js"></script>
-	<script src="scripts/controllers/datepicker.js"></script>
+	<script src="scripts/controllers/dateTimePickerModal.js"></script>
 	<script src="scripts/controllers/dateTimePicker.js"></script>
-	<script src="scripts/directives/datepicker.js"></script>
+	<script src="scripts/directives/datePicker.js"></script>
 	<script src="scripts/directives/datepickerInput.js"></script>
 	<script src="scripts/controllers/demo.js"></script>
 	<script src="scripts/filters/leadingzeros.js"></script>
-	<script src="scripts/services/datepickerConfig.js"></script>
-	<script src="scripts/services/day.js"></script>
-	<script src="scripts/directives/datetimepicker.js"></script>
-	<script src="scripts/directives/timepicker.js"></script>
-	<script src="scripts/directives/dtpcalendar.js"></script>
+	<script src="scripts/services/dateTimePickerConfig.js"></script>
+	<script src="scripts/services/dtpDay.js"></script>
+	<script src="scripts/directives/dateTimePicker.js"></script>
+	<script src="scripts/directives/timePicker.js"></script>
+	<script src="scripts/directives/dtpCalendar.js"></script>
 	<!-- endbuild -->
 </body>
 </html>

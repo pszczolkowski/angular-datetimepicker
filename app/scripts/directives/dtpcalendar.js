@@ -2,14 +2,14 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
+		.module('pszczolkowski.dateTimePicker')
 		.directive('dtpCalendar', dtpCalendar);
 
-	dtpCalendar.$inject = ['Day', 'datePickerConfig'];
+	dtpCalendar.$inject = ['dtpDay', 'dateTimePickerConfig'];
 
-	function dtpCalendar(Day, datePickerConfig) {
+	function dtpCalendar(Day, dateTimePickerConfig) {
 		return {
-			templateUrl: 'templates/dtpCalendar.html',
+			templateUrl: 'templates/dateTimePickerCalendar.html',
 			require: 'ngModel',
 			scope: {
 				ngModel: '=',
@@ -26,8 +26,8 @@
 			var date;
 			var monthDate = getDateWithMonthFrom(scope.ngModel);
 			scope.weeks = [];
-			scope.dateMin = scope.dateMin || datePickerConfig.minimumDate;
-			scope.dateMax = scope.dateMax || datePickerConfig.maximumDate;
+			scope.dateMin = scope.dateMin || dateTimePickerConfig.minimumDate;
+			scope.dateMax = scope.dateMax || dateTimePickerConfig.maximumDate;
 			scope.today = new Day(new Date());
 			scope.selectDay = selectDay;
 

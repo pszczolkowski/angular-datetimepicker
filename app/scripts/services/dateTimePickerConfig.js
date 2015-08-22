@@ -2,8 +2,8 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
-		.constant('datePickerConfig', {
+		.module('pszczolkowski.dateTimePicker')
+		.constant('dateTimePickerConfig', {
 			dateFormat: 'yyyy-MM-dd',
 			dateTimeFormat: 'yyyy-MM-dd HH:mm',
 			timeFormat: 'HH:mm',

@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker', ['ui.bootstrap', 'dateParser']);
+		.module('pszczolkowski.dateTimePicker', ['ui.bootstrap', 'dateParser']);
 
 	angular
-		.module('pszczolkowski.datePicker')
-		.config(['datePickerConfig', function(datePickerConfig) {
-			datePickerConfig.minuteStep = 2;
+		.module('pszczolkowski.dateTimePicker')
+		.config(['dateTimePickerConfig', function(dateTimePickerConfig) {
+			dateTimePickerConfig.minuteStep = 2;
 		}]);
 })();

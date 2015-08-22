@@ -2,12 +2,12 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
+		.module('pszczolkowski.dateTimePicker')
 		.directive('datePickerInput', datePickerInput);
 
-	datePickerInput.$inject = ['$dateParser', 'dateFilter', 'datePickerConfig'];
+	datePickerInput.$inject = ['$dateParser', 'dateFilter', 'dateTimePickerConfig'];
 
-	function datePickerInput($dateParser, dateFilter, datePickerConfig) {
+	function datePickerInput($dateParser, dateFilter, dateTimePickerConfig) {
 		return {
 			scope: {
 				dateFormat: '@',
@@ -36,13 +36,13 @@
 					if (!format) {
 						switch (scope.datePickerInput) {
 							case 'date':
-								format = datePickerConfig.dateFormat;
+								format = dateTimePickerConfig.dateFormat;
 								break;
 							case 'datetime':
-								format = datePickerConfig.dateTimeFormat;
+								format = dateTimePickerConfig.dateTimeFormat;
 								break;
 							case 'time':
-								format = datePickerConfig.timeFormat;
+								format = dateTimePickerConfig.timeFormat;
 								break;
 						}
 					}

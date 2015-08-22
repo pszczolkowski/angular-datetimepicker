@@ -16,21 +16,21 @@
 		{num: 11, name: 'December'}];
 
 	angular
-		.module('pszczolkowski.datePicker')
-		.controller('DatePickerCtrl' , DatePickerCtrl);
+		.module('pszczolkowski.dateTimePicker')
+		.controller('DateTimePickerModalCtrl' , DateTimePickerModalCtrl);
 
-	DatePickerCtrl.$inject = ['$scope', '$modalInstance', 'datePickerConfig', 'pickType', 'selectedDate', 'constraints', 'Day'];
+	DateTimePickerModalCtrl.$inject = ['$scope', '$modalInstance', 'dateTimePickerConfig', 'pickType', 'selectedDate', 'constraints', 'dtpDay'];
 
-	function DatePickerCtrl($scope, $modalInstance, datePickerConfig, pickType, selectedDate, constraints, Day) {
+	function DateTimePickerModalCtrl($scope, $modalInstance, dateTimePickerConfig, pickType, selectedDate, constraints, Day) {
 		var now = new Date();
 
-		constraints.dateMin = constraints.dateMin || datePickerConfig.minimumDate;
-		constraints.dateMax = constraints.dateMax || datePickerConfig.maximumDate;
+		constraints.dateMin = constraints.dateMin || dateTimePickerConfig.minimumDate;
+		constraints.dateMax = constraints.dateMax || dateTimePickerConfig.maximumDate;
 		if (constraints.hourMin === undefined) {
-			constraints.hourMin = datePickerConfig.minimumHour;
+			constraints.hourMin = dateTimePickerConfig.minimumHour;
 		}
 		if (constraints.hourMax === undefined) {
-			constraints.hourMax = datePickerConfig.maximumHour;
+			constraints.hourMax = dateTimePickerConfig.maximumHour;
 		}
 		if (constraints.hourMin > constraints.hourMax) {
 			throw 'Minimum hour constraint can\'t be grater than maximum hour constraint';

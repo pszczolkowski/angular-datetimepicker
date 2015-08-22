@@ -2,8 +2,8 @@
 	'use strict';
 
 	angular
-		.module('pszczolkowski.datePicker')
-		.factory('Day', DayFactory);
+		.module('pszczolkowski.dateTimePicker')
+		.factory('dtpDay', DayFactory);
 
 
 	function DayFactory() {
