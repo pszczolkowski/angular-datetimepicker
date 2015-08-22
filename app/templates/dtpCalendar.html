@@ -1,0 +1,29 @@
+<table id="datepicker-calendar" class="table text-center">
+
+	<thead>
+		<tr>
+			<th class="text-center">Mon</th>
+			<th class="text-center">Tue</th>
+			<th class="text-center">Wed</th>
+			<th class="text-center">Thu</th>
+			<th class="text-center">Fri</th>
+			<th class="text-center">Sat</th>
+			<th class="text-center">Sun</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr ng-repeat="week in weeks">
+			<td ng-repeat="day in week"
+				class="datepicker-calendar-day"
+				ng-class="{'datepicker-other-month': day.month !== calendarMonth,
+								   'datepicker-today': today.equals(day),
+								   'datepicker-selected': day.equals(ngModel),
+								   'datepicker-disabled': day.before(dateMin) || day.after(dateMax)}"
+				ng-click="selectDay(day)">
+				{{day.day}}
+			</td>
+		</tr>
+	</tbody>
+
+</table>
