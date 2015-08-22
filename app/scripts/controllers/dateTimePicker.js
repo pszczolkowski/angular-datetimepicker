@@ -32,7 +32,8 @@
 							dateMin: $scope.dateMin,
 							dateMax: $scope.dateMax,
 							hourMin: hourMin,
-							hourMax: hourMax
+							hourMax: hourMax,
+							required: $scope.required
 						};
 					}
 				}

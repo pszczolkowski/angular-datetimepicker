@@ -14,8 +14,9 @@
 				require: 'ngModel',
 				templateUrl: 'templates/dateTimePickerInput.html',
 				replace: true,
-				link: function (scope) {
+				link: function (scope, element, attributes) {
 					scope.pickType = 'time';
+					scope.required = attributes.required;
 				},
 				controller: 'DateTimePickerCtrl'
 			};

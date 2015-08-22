@@ -98,7 +98,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<button class="btn btn-default btn-block"
 					ng-click="clear()"
-					ng-if="pickType === 'date' || pickType === 'datetime'">Clear
+					ng-if="!constraints.required && (pickType === 'date' || pickType === 'datetime')">Clear
 			</button>
 		</div>
 
