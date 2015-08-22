@@ -20,7 +20,7 @@
 	<div ng-controller="DemoCtrl">
 		<input date-picker ng-model="date" date-min="dateMin" date-max="dateMax" hour-min="12" hour-max="19" />
 
-		<input date-time-picker ng-model="date" hour-min="12" hour-max="19" date-min="dateMin" date-max="dateMax" />
+		<input date-time-picker ng-model="date" hour-min="12" hour-max="19" date-min="dateMin" date-max="dateMax" minute-step="15" />
 
 		<input time-picker ng-model="date" />
 	</div>
@@ -59,6 +59,7 @@
 	<script src="scripts/directives/dateTimePicker.js"></script>
 	<script src="scripts/directives/timePicker.js"></script>
 	<script src="scripts/directives/dtpCalendar.js"></script>
+	<script src="scripts/directives/dtpTimer.js"></script>
 	<!-- endbuild -->
 </body>
 </html>

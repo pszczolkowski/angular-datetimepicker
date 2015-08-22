@@ -62,7 +62,7 @@
 			 ng-if="pickType === 'date' || pickType === 'datetime'">
 
 			<div dtp-calendar
-				 ng-model="calendar.selectedDayDate"
+				 ng-model="date.selectedDay"
 				 calendar-month="calendar.month"
 				 calendar-year="calendar.year"
 				 date-min="constraints.dateMin"
@@ -74,35 +74,13 @@
 				class="col-xs-12 text-center"
 				ng-class="{'col-sm-4': pickType === 'datetime'}"
 				ng-if="pickType === 'time' || pickType === 'datetime'">
-			<div class="btn-group-vertical">
-				<button class="btn btn-default"
-						ng-click="plusHour()">
-					<span class="glyphicon glyphicon-chevron-up"></span>
-				</button>
-				<select ng-model="selectedTime.hour"
-						ng-options="hour for hour in hours track by hour">
-				</select>
-				<button class="btn btn-default"
-						ng-click="minusHour()">
-					<span class="glyphicon glyphicon-chevron-down"></span>
-				</button>
-			</div>
 
-			<span>:</span>
+			<div dtp-timer
+				 ng-model="date.selectedTime"
+				 hour-min="{{constraints.hourMin}}"
+				 hour-max="{{constraints.hourMax}}"
+				 minute-step="{{constraints.minuteStep}}"></div>
 
-			<div class="btn-group-vertical">
-				<button class="btn btn-default"
-						ng-click="plusMinute()">
-					<span class="glyphicon glyphicon-chevron-up"></span>
-				</button>
-				<select ng-model="selectedTime.minute"
-						ng-options="(minute | leadingZeros) for minute in minutes track by minute">
-				</select>
-				<button class="btn btn-default"
-						ng-click="minusMinute()">
-					<span class="glyphicon glyphicon-chevron-down"></span>
-				</button>
-			</div>
 		</div>
 	</div>
 

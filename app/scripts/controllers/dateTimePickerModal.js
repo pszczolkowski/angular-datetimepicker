@@ -19,28 +19,23 @@
 		.module('pszczolkowski.dateTimePicker')
 		.controller('DateTimePickerModalCtrl' , DateTimePickerModalCtrl);
 
-	DateTimePickerModalCtrl.$inject = ['$scope', '$modalInstance', 'dateTimePickerConfig', 'pickType', 'selectedDate', 'constraints', 'dtpDay'];
+	DateTimePickerModalCtrl.$inject = ['$scope', '$modalInstance', 'dateTimePickerConfig', 'pickType', 'selectedDate', 'constraints'];
 
-	function DateTimePickerModalCtrl($scope, $modalInstance, dateTimePickerConfig, pickType, selectedDate, constraints, Day) {
+	function DateTimePickerModalCtrl($scope, $modalInstance, dateTimePickerConfig, pickType, selectedDate, constraints) {
 		var now = new Date();
 
 		constraints.dateMin = constraints.dateMin || dateTimePickerConfig.minimumDate;
 		constraints.dateMax = constraints.dateMax || dateTimePickerConfig.maximumDate;
-		if (constraints.hourMin === undefined) {
-			constraints.hourMin = dateTimePickerConfig.minimumHour;
-		}
-		if (constraints.hourMax === undefined) {
-			constraints.hourMax = dateTimePickerConfig.maximumHour;
-		}
-		if (constraints.hourMin > constraints.hourMax) {
-			throw 'Minimum hour constraint can\'t be grater than maximum hour constraint';
-		}
 
 		$scope.pickType = pickType;
 		$scope.calendar = {
 			month: 	selectedDate ? selectedDate.getMonth() : now.getMonth(),
 			year: selectedDate ? selectedDate.getFullYear() : now.getFullYear(),
 			selectedDayDate: selectedDate ? selectedDate : new Date()
+		};
+		$scope.date = {
+			selectedDay: selectedDate ? new Date(selectedDate.getTime()) : new Date(),
+			selectedTime: selectedDate ? new Date(selectedDate.getTime()) : new Date()
 		};
 		$scope.months = [];
 		$scope.years = [];
@@ -52,20 +47,7 @@
 		$scope.cancel = cancel;
 		$scope.selectToday = selectToday;
 		$scope.clear = clear;
-		$scope.constraints = {
-			dateMin: constraints.dateMin,
-			dateMax: constraints.dateMax
-		};
-		$scope.selectedTime = {
-			hour: roundHourToFulfillConstraints(selectedDate, constraints.hourMin, constraints.hourMax),
-			minute: roundMinute(selectedDate, constraints.minuteStep)
-		};
-		$scope.hours = [];
-		$scope.minutes = [];
-		$scope.minusHour = minusHour;
-		$scope.plusHour = plusHour;
-		$scope.minusMinute = minusMinute;
-		$scope.plusMinute = plusMinute;
+		$scope.constraints = constraints;
 
 		generateMonths();
 		generateYears();
@@ -133,11 +115,11 @@
 		function confirm() {
 			var returnDate = null;
 
-			if ($scope.calendar.selectedDayDate !== undefined) {
+			if ($scope.date.selectedDay !== undefined) {
 				returnDate = new Date();
-				returnDate.setTime($scope.calendar.selectedDayDate.getTime());
-				returnDate.setHours($scope.selectedTime.hour);
-				returnDate.setMinutes($scope.selectedTime.minute);
+				returnDate.setTime($scope.date.selectedDay.getTime());
+				returnDate.setHours($scope.date.selectedTime.getHours());
+				returnDate.setMinutes($scope.date.selectedTime.getMinutes());
 			}
 
 			$modalInstance.close(returnDate);
@@ -147,75 +129,16 @@
 			$modalInstance.dismiss('cancel');
 		}
 
-		for (var i = constraints.hourMax; i >= constraints.hourMin; i--) {
-			$scope.hours.push(i);
-		}
-		for (var i = 60 - constraints.minuteStep; i >= 0 ; i -= constraints.minuteStep) {
-			$scope.minutes.push(i);
-		}
-
-		function roundHourToFulfillConstraints(date, hourMin, hourMax) {
-			date = date || new Date();
-			var hour = date.getHours();
-			if (hour < hourMin) {
-				hour = hourMin;
-			} else if (hour > hourMax) {
-				hour = hourMax;
-			}
-
-			return hour;
-		}
-
 		function selectToday() {
 			var now = new Date();
-			$scope.calendar.selectedDayDate = now;
+			$scope.date.selectedDay = now;
 			$scope.calendar.month = now.getMonth();
 			$scope.calendar.year = now.getFullYear();
 		}
 
 		function clear() {
-			$scope.calendar.selectedDayDate = undefined;
-		}
-
-		function addHours(quantity) {
-			$scope.selectedTime.hour = ($scope.selectedTime.hour + quantity + 24) % 24;
-			validateHourConstraints();
-		}
-
-		function validateHourConstraints() {
-			if ($scope.selectedTime.hour < constraints.hourMin) {
-				$scope.selectedTime.hour = constraints.hourMin;
-			} else if ($scope.selectedTime.hour > constraints.hourMax) {
-				$scope.selectedTime.hour = constraints.hourMax;
-			}
-		}
-
-		function minusHour() {
-			addHours(-1);
-		}
-
-		function plusHour() {
-			addHours(1);
-		}
-
-		function addMinutes(quantity) {
-			$scope.selectedTime.minute = ($scope.selectedTime.minute + quantity + 60) % 60;
-		}
-
-		function minusMinute() {
-			addMinutes(-constraints.minuteStep);
-		}
-
-		function plusMinute() {
-			addMinutes(constraints.minuteStep);
-		}
-
-		function roundMinute(date, minuteStep) {
-			date = date || new Date();
-			var minute = date.getMinutes();
-			var rounded = minuteStep * Math.round(minute / minuteStep);
-
-			return rounded > 59 ? 0 : rounded;
+			$scope.date.selectedDay = undefined;
+			$scope.date.selectedTime = undefined;
 		}
 	}
 })();

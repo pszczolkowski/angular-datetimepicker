@@ -1,0 +1,33 @@
+<div class="btn-group-vertical">
+	<button class="btn btn-default"
+			ng-click="plusHour()"
+			ng-disabled="selectedTime.hour === constraints.hourMax">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</button>
+	<select ng-model="selectedTime.hour"
+			ng-change="hourChange()"
+			ng-options="hour for hour in hours track by hour">
+	</select>
+	<button class="btn btn-default"
+			ng-click="minusHour()"
+			ng-disabled="selectedTime.hour === constraints.hourMin">
+		<span class="glyphicon glyphicon-chevron-down"></span>
+	</button>
+</div>
+
+<span>:</span>
+
+<div class="btn-group-vertical">
+	<button class="btn btn-default"
+			ng-click="plusMinute()">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</button>
+	<select ng-model="selectedTime.minute"
+			ng-change="minuteChange()"
+			ng-options="(minute | leadingZeros) for minute in minutes track by minute">
+	</select>
+	<button class="btn btn-default"
+			ng-click="minusMinute()">
+		<span class="glyphicon glyphicon-chevron-down"></span>
+	</button>
+</div>
