@@ -33,7 +33,8 @@
 							dateMax: $scope.dateMax,
 							hourMin: hourMin,
 							hourMax: hourMax,
-							required: $scope.required
+							required: $scope.required,
+							showWeekNumbers: $scope.showWeekNumbers
 						};
 					}
 				}

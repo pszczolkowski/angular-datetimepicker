@@ -2,6 +2,8 @@
 
 	<thead>
 		<tr>
+			<th class="datepicker-calendar-weekno"
+				ng-if="showWeekNumbers"></th>
 			<th class="text-center">Mon</th>
 			<th class="text-center">Tue</th>
 			<th class="text-center">Wed</th>
@@ -14,7 +16,11 @@
 
 	<tbody>
 		<tr ng-repeat="week in weeks">
-			<td ng-repeat="day in week"
+			<td class="datepicker-calendar-weekno"
+				ng-if="showWeekNumbers">
+					{{week.num}}
+			</td>
+			<td ng-repeat="day in week.days"
 				class="datepicker-calendar-day"
 				ng-class="{'datepicker-other-month': day.month !== calendarMonth,
 								   'datepicker-today': today.equals(day),

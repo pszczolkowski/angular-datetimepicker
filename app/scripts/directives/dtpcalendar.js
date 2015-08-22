@@ -16,7 +16,8 @@
 				calendarMonth: '=',
 				calendarYear: '=',
 				dateMin: '=',
-				dateMax: '='
+				dateMax: '=',
+				showWeekNumbers: '='
 			},
 			link: link
 		};
@@ -77,17 +78,29 @@
 
 				while (startDate <= endDate) {
 					if (startDate.getDay() === 1) {
-						week = [];
+						week = {
+							days: [],
+							num: getWeekNumberFor(startDate)
+						};
 						scope.weeks.push(week);
 					}
 
-					week.push(new Day(startDate));
+					week.days.push(new Day(startDate));
 					startDate.setDate(startDate.getDate() + 1);
 				}
 			}
 
 			function isSunday(date) {
 				return date.getDay() === 0;
+			}
+
+			function getWeekNumberFor(date) {
+				date = new Date(date.getTime());
+				date.setHours(0, 0, 0);
+				date.setDate(date.getDate() + 4 - (date.getDay() || 7));
+				var yearStart = new Date(date.getFullYear(), 0, 1);
+				var weekNo = Math.ceil(( ( (date - yearStart) / 86400000) + 1) / 7);
+				return weekNo;
 			}
 		}
 	}

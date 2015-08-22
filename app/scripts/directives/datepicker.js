@@ -21,6 +21,7 @@
 			link: function (scope, element, attributes) {
 				scope.pickType = 'date';
 				scope.required = attributes.required;
+				scope.showWeekNumbers = (attributes.showWeekNumbers !== undefined);
 			},
 			controller: 'DateTimePickerCtrl'
 		};
