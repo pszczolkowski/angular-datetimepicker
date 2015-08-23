@@ -31,7 +31,7 @@
 			scope.dateMax = scope.dateMax || dateTimePickerConfig.maximumDate;
 			scope.today = new Day(new Date());
 			scope.selectDay = selectDay;
-
+			scope.dateFormat = dateTimePickerConfig.dateFormat;
 
 			prepareWeeksForView();
 			scope.$watch('calendarMonth', function (month) {

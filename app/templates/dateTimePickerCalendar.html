@@ -1,35 +1,49 @@
-<table id="datepicker-calendar" class="table text-center">
+<div>
 
-	<thead>
-		<tr>
-			<th class="datepicker-calendar-weekno"
-				ng-if="showWeekNumbers"></th>
-			<th class="text-center">Mon</th>
-			<th class="text-center">Tue</th>
-			<th class="text-center">Wed</th>
-			<th class="text-center">Thu</th>
-			<th class="text-center">Fri</th>
-			<th class="text-center">Sat</th>
-			<th class="text-center">Sun</th>
-		</tr>
-	</thead>
+	<table id="datepicker-calendar" class="table text-center">
 
-	<tbody>
-		<tr ng-repeat="week in weeks">
-			<td class="datepicker-calendar-weekno"
-				ng-if="showWeekNumbers">
-					{{week.num}}
-			</td>
-			<td ng-repeat="day in week.days"
-				class="datepicker-calendar-day"
-				ng-class="{'datepicker-other-month': day.month !== calendarMonth,
-								   'datepicker-today': today.equals(day),
-								   'datepicker-selected': day.equals(ngModel),
-								   'datepicker-disabled': day.before(dateMin) || day.after(dateMax)}"
-				ng-click="selectDay(day)">
-				{{day.day}}
-			</td>
-		</tr>
-	</tbody>
+		<thead>
+			<tr>
+				<th class="datepicker-calendar-weekno"
+					ng-if="showWeekNumbers"></th>
+				<th class="text-center">Mon</th>
+				<th class="text-center">Tue</th>
+				<th class="text-center">Wed</th>
+				<th class="text-center">Thu</th>
+				<th class="text-center">Fri</th>
+				<th class="text-center">Sat</th>
+				<th class="text-center">Sun</th>
+			</tr>
+		</thead>
 
-</table>
+		<tbody>
+			<tr ng-repeat="week in weeks">
+				<td class="datepicker-calendar-weekno"
+					ng-if="showWeekNumbers">
+						{{week.num}}
+				</td>
+				<td ng-repeat="day in week.days"
+					class="datepicker-calendar-day"
+					ng-class="{'datepicker-other-month': day.month !== calendarMonth,
+									   'datepicker-today': today.equals(day),
+									   'datepicker-selected': day.equals(ngModel),
+									   'datepicker-disabled': day.before(dateMin) || day.after(dateMax)}"
+					ng-click="selectDay(day)">
+					{{day.day}}
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+
+	<p class="text-center">
+		<span ng-show="ngModel !== undefined">
+			Selected day: {{ngModel | date:dateFormat}}
+		</span>
+
+		<span ng-show="ngModel === undefined">
+			No day is selected
+		</span>
+	</p>
+
+</div>
