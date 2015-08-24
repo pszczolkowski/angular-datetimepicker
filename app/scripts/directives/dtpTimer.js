@@ -27,6 +27,7 @@
 				hourMax: scope.hourMax ? parseInt(scope.hourMax, 10) : undefined,
 				minuteStep: scope.minuteStep === undefined ? dateTimePickerConfig.minuteStep : parseInt(scope.minuteStep, 10)
 			};
+			scope.ngModel = scope.ngModel || new Date();
 			scope.hours = [];
 			scope.minutes = [];
 			scope.selectedTime = {
@@ -59,22 +60,28 @@
 				} else if (scope.constraints.hourMax !== undefined && hour > scope.constraints.hourMax) {
 					scope.ngModel.setHours(scope.constraints.hourMax);
 					scope.ngModel.setMinutes(0);
+				} else {
+					roundTimeToMinuteStep();
 				}
-
+				
 				synchronizeFieldsWithModel();
 			}
 
+			function roundTimeToMinuteStep() {
+				var minutes = scope.ngModel.getMinutes();
+				var rounded = scope.minuteStep * Math.round(minutes / scope.minuteStep);
+
+				if (rounded > 59) {
+					scope.ngModel.setHours(scope.ngModel.getHours() + 1);
+					rounded = 0;
+				}
+				
+				scope.ngModel.setMinutes(rounded);
+			}
+			
 			function synchronizeFieldsWithModel() {
 				scope.selectedTime.hour = scope.ngModel.getHours();
-				scope.selectedTime.minute = roundMinute(scope.ngModel, scope.constraints.minuteStep);
-			}
-
-			function roundMinute(date, minuteStep) {
-				date = date || new Date();
-				var minute = date.getMinutes();
-				var rounded = minuteStep * Math.round(minute / minuteStep);
-
-				return rounded > 59 ? 0 : rounded;
+				scope.selectedTime.minute = scope.ngModel.getMinutes();
 			}
 
 			function generateHours() {
