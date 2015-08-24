@@ -8,11 +8,7 @@
 	DateTimePickerCtrl.$inject = ['$scope', '$modal', 'dateTimePickerConfig'];
 
 	function DateTimePickerCtrl($scope, $modal, dateTimePickerConfig) {
-		$scope.minuteStep = $scope.minuteStep || dateTimePickerConfig.minuteStep;
 		$scope.pickDate = pickDate;
-
-		var hourMin = $scope.hourMin ? parseInt($scope.hourMin, 10) : undefined;
-		var hourMax = $scope.hourMax ? parseInt($scope.hourMax, 10) : undefined;
 
 		function pickDate() {
 			var modalInstance = $modal.open({
@@ -31,8 +27,8 @@
 							minuteStep: $scope.minuteStep,
 							dateMin: $scope.dateMin,
 							dateMax: $scope.dateMax,
-							hourMin: hourMin,
-							hourMax: hourMax,
+							hourMin: $scope.hourMin,
+							hourMax: $scope.hourMax,
 							required: $scope.required,
 							showWeekNumbers: $scope.showWeekNumbers
 						};

@@ -25,7 +25,7 @@
 			scope.constraints = {
 				hourMin: scope.hourMin ? parseInt(scope.hourMin, 10) : undefined,
 				hourMax: scope.hourMax ? parseInt(scope.hourMax, 10) : undefined,
-				minuteStep: scope.minuteStep === undefined ? dateTimePickerConfig.minuteStep : parseInt(scope.minuteStep, 10)
+				minuteStep: scope.minuteStep ? parseInt(scope.minuteStep, 10) : dateTimePickerConfig.minuteStep
 			};
 			scope.ngModel = scope.ngModel || new Date();
 			scope.hours = [];
@@ -69,7 +69,7 @@
 
 			function roundTimeToMinuteStep() {
 				var minutes = scope.ngModel.getMinutes();
-				var rounded = scope.minuteStep * Math.round(minutes / scope.minuteStep);
+				var rounded = scope.constraints.minuteStep * Math.round(minutes / scope.constraints.minuteStep);
 
 				if (rounded > 59) {
 					scope.ngModel.setHours(scope.ngModel.getHours() + 1);
