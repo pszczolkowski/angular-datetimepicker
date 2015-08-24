@@ -1,33 +1,61 @@
-<div class="btn-group-vertical">
-	<button class="btn btn-default"
-			ng-click="plusHour()"
-			ng-disabled="selectedTime.hour === constraints.hourMax">
-		<span class="glyphicon glyphicon-chevron-up"></span>
-	</button>
-	<select ng-model="selectedTime.hour"
-			ng-change="hourChange()"
-			ng-options="hour for hour in hours track by hour">
-	</select>
-	<button class="btn btn-default"
-			ng-click="minusHour()"
-			ng-disabled="selectedTime.hour === constraints.hourMin">
-		<span class="glyphicon glyphicon-chevron-down"></span>
-	</button>
-</div>
+<div id="datepicker-timer">
+	<div class="btn-group-vertical" role="group">
+		<button class="btn btn-default"
+				ng-click="plusHour()"
+				ng-disabled="selectedTime.hour === constraints.hourMax">
+			<span class="glyphicon glyphicon-chevron-up"></span>
+		</button>
+		
+		<div class="datepicker-time-view btn-group">
+			<button type="button"
+					class="btn btn-default dropdown-toggle" 
+					data-toggle="dropdown" 
+					aria-haspopup="true" 
+					aria-expanded="true">
+						{{selectedTime.hour}}
+						<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<li ng-repeat="hour in hours">
+					<a href="#" ng-click="setHour(hour)">{{hour}}</a>
+				</li>
+			</ul>
+		</div>
+		
+		<button class="btn btn-default"
+				ng-click="minusHour()"
+				ng-disabled="selectedTime.hour === constraints.hourMin">
+			<span class="glyphicon glyphicon-chevron-down"></span>
+		</button>
+	</div>
 
-<span>:</span>
+	<span>:</span>
 
-<div class="btn-group-vertical">
-	<button class="btn btn-default"
-			ng-click="plusMinute()">
-		<span class="glyphicon glyphicon-chevron-up"></span>
-	</button>
-	<select ng-model="selectedTime.minute"
-			ng-change="minuteChange()"
-			ng-options="(minute | leadingZeros) for minute in minutes track by minute">
-	</select>
-	<button class="btn btn-default"
-			ng-click="minusMinute()">
-		<span class="glyphicon glyphicon-chevron-down"></span>
-	</button>
+	<div class="btn-group-vertical">
+		<button class="btn btn-default"
+				ng-click="plusMinute()">
+			<span class="glyphicon glyphicon-chevron-up"></span>
+		</button>
+		
+		<div class="datepicker-time-view btn-group">
+			<button type="button"
+					class="btn btn-default dropdown-toggle" 
+					data-toggle="dropdown" 
+					aria-haspopup="true" 
+					aria-expanded="true">
+						{{selectedTime.minute | leadingZeros}}
+						<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<li ng-repeat="minute in minutes">
+					<a href="#" ng-click="setMinute(minute)">{{minute | leadingZeros}}</a>
+				</li>
+			</ul>
+		</div>
+		
+		<button class="btn btn-default"
+				ng-click="minusMinute()">
+			<span class="glyphicon glyphicon-chevron-down"></span>
+		</button>
+	</div>
 </div>

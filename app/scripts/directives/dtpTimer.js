@@ -38,8 +38,8 @@
 			scope.plusHour = plusHour;
 			scope.minusMinute = minusMinute;
 			scope.plusMinute = plusMinute;
-			scope.hourChange = hourChange;
-			scope.minuteChange = minuteChange;
+			scope.setHour = setHour;
+			scope.setMinute = setMinute;
 
 			if (scope.constraints.hourMin && scope.constraints.hourMax && scope.constraints.hourMin > scope.constraints.hourMax) {
 				throw 'Minimum hour constraint can\'t be grater than maximum hour constraint';
@@ -133,13 +133,13 @@
 				addMinutes(scope.constraints.minuteStep);
 			}
 
-			function hourChange() {
-				scope.ngModel.setHours(scope.selectedTime.hour);
+			function setHour(hour) {
+				scope.ngModel.setHours(hour);
 				synchronizeFieldsWithModel();
 			}
 
-			function minuteChange() {
-				scope.ngModel.setMinutes(scope.selectedTime.minute);
+			function setMinute(minute) {
+				scope.ngModel.setMinutes(minute);
 				synchronizeFieldsWithModel();
 			}
 		}
