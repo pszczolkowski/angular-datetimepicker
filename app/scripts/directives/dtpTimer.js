@@ -23,8 +23,8 @@
 
 		function link(scope) {
 			scope.constraints = {
-				hourMin: scope.hourMin === undefined ? dateTimePickerConfig.minimumHour : parseInt(scope.hourMin, 10),
-				hourMax: scope.hourMax === undefined ? dateTimePickerConfig.maximumHour : parseInt(scope.hourMax, 10),
+				hourMin: scope.hourMin ? parseInt(scope.hourMin, 10) : undefined,
+				hourMax: scope.hourMax ? parseInt(scope.hourMax, 10) : undefined,
 				minuteStep: scope.minuteStep === undefined ? dateTimePickerConfig.minuteStep : parseInt(scope.minuteStep, 10)
 			};
 			scope.hours = [];
@@ -40,7 +40,7 @@
 			scope.hourChange = hourChange;
 			scope.minuteChange = minuteChange;
 
-			if (scope.constraints.hourMin > scope.constraints.hourMax) {
+			if (scope.constraints.hourMin && scope.constraints.hourMax && scope.constraints.hourMin > scope.constraints.hourMax) {
 				throw 'Minimum hour constraint can\'t be grater than maximum hour constraint';
 			}
 
@@ -53,10 +53,10 @@
 				var date = scope.ngModel || new Date();
 				var hour = date.getHours();
 
-				if (hour < scope.constraints.hourMin) {
+				if (scope.constraints.hourMin !== undefined && hour < scope.constraints.hourMin) {
 					scope.ngModel.setHours(scope.constraints.hourMin);
 					scope.ngModel.setMinutes(0);
-				} else if (hour > scope.constraints.hourMax) {
+				} else if (scope.constraints.hourMax !== undefined && hour > scope.constraints.hourMax) {
 					scope.ngModel.setHours(scope.constraints.hourMax);
 					scope.ngModel.setMinutes(0);
 				}
@@ -78,7 +78,10 @@
 			}
 
 			function generateHours() {
-				for (var i = scope.hourMax; i >= scope.hourMin; i--) {
+				var hourMax = scope.constraints.hourMax === undefined ? 23 : scope.constraints.hourMax;
+				var hourMin = scope.constraints.hourMin === undefined ? 0 : scope.constraints.hourMin;
+				
+				for (var i = hourMax; i >= hourMin; i--) {
 					scope.hours.push(i);
 				}
 			}
@@ -95,9 +98,9 @@
 			}
 
 			function validateHourConstraints() {
-				if (scope.ngModel.getHours() < scope.constraints.hourMin) {
+				if (scope.constraints.hourMin !== undefined && scope.ngModel.getHours() < scope.constraints.hourMin) {
 					scope.ngModel.setHours(scope.constraints.hourMin);
-				} else if (scope.ngModel.getHours() > scope.constraints.hourMax) {
+				} else if (scope.constraints.hourMax !== undefined && scope.ngModel.getHours() > scope.constraints.hourMax) {
 					scope.ngModel.setHours(scope.constraints.hourMax);
 				}
 				synchronizeFieldsWithModel();
