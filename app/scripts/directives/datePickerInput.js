@@ -14,7 +14,16 @@
 				datePickerInput: '='
 			},
 			require: 'ngModel',
-			link: function(scope, elem, attr, ngModelController) {
+			link: function(scope, elem, attributes, ngModelController) {
+				// invoke manually formatters when dateFormat is 
+				// properly assigned. They are run for first time
+				// when dateFormat is not assigned yet
+				attributes.$observe('dateFormat', function (dateFormat) {
+					if (ngModelController.$modelValue) {
+						ngModelController.$modelValue = new Date(ngModelController.$modelValue.getTime());
+					}
+				});
+				
 				if (ngModelController) {
 					ngModelController.$parsers.push(function(dateString) {
 						var date = $dateParser(dateString, scope.dateFormat);
