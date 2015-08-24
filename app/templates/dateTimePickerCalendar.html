@@ -38,7 +38,9 @@
 
 	<p class="text-center">
 		<span ng-show="ngModel !== undefined">
-			Selected day: {{ngModel | date:dateFormat}}
+			<a href="#" ng-click="goToSelectedDay()">
+				Selected day: {{ngModel | date:dateFormat}}
+			</a>
 		</span>
 
 		<span ng-show="ngModel === undefined">

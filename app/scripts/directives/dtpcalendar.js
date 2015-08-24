@@ -31,6 +31,7 @@
 			scope.dateMax = scope.dateMax || dateTimePickerConfig.maximumDate;
 			scope.today = new Day(new Date());
 			scope.selectDay = selectDay;
+			scope.goToSelectedDay = goToSelectedDay;
 			scope.dateFormat = dateTimePickerConfig.dateFormat;
 
 			prepareWeeksForView();
@@ -43,6 +44,12 @@
 				prepareWeeksForView();
 			});
 
+			
+			function synchronizeFieldsWithModel() {
+				scope.calendarMonth = monthDate.getMonth();
+				scope.calendarYear = monthDate.getFullYear();
+			}
+			
 			function selectDay(day) {
 				if (day.before(scope.dateMin) || day.after(scope.dateMax)) {
 					return;
@@ -50,8 +57,7 @@
 
 				scope.ngModel = day.toDate();
 				monthDate = getDateWithMonthFrom(scope.ngModel);
-				scope.calendarMonth = monthDate.getMonth();
-				scope.calendarYear = monthDate.getFullYear();
+				synchronizeFieldsWithModel();
 				prepareWeeksForView();
 			}
 
@@ -101,6 +107,14 @@
 				var yearStart = new Date(date.getFullYear(), 0, 1);
 				var weekNo = Math.ceil(( ( (date - yearStart) / 86400000) + 1) / 7);
 				return weekNo;
+			}
+			
+			function goToSelectedDay() {
+				monthDate.setFullYear(scope.ngModel.getFullYear());
+				monthDate.setMonth(scope.ngModel.getMonth());
+				
+				synchronizeFieldsWithModel();
+				prepareWeeksForView();
 			}
 		}
 	}
