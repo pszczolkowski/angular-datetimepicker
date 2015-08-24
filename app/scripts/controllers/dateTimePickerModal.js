@@ -23,6 +23,10 @@
 
 	function DateTimePickerModalCtrl($scope, $modalInstance, dateTimePickerConfig, pickType, selectedDate, constraints) {
 		var now = new Date();
+		
+		if (!(selectedDate instanceof Date)) {
+			selectedDate = new Date();
+		}
 
 		constraints.dateMin = constraints.dateMin || dateTimePickerConfig.minimumDate;
 		constraints.dateMax = constraints.dateMax || dateTimePickerConfig.maximumDate;

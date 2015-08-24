@@ -23,15 +23,7 @@
 						return $scope.ngModel;
 					},
 					constraints: function () {
-						return {
-							minuteStep: $scope.minuteStep,
-							dateMin: $scope.dateMin,
-							dateMax: $scope.dateMax,
-							hourMin: $scope.hourMin,
-							hourMax: $scope.hourMax,
-							required: $scope.required,
-							showWeekNumbers: $scope.showWeekNumbers
-						};
+						return $scope.constraints;
 					}
 				}
 			});

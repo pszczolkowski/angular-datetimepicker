@@ -7,6 +7,5 @@
 	angular
 		.module('pszczolkowski.dateTimePicker')
 		.config(['dateTimePickerConfig', function(dateTimePickerConfig) {
-			dateTimePickerConfig.minuteStep = 2;
 		}]);
 })();

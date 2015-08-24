@@ -22,9 +22,16 @@
 			replace: true,
 			link: function (scope, element, attributes) {
 				scope.pickType = 'datetime';
-				scope.dateFormat = scope.dateFormat || dateTimePickerConfig.dateTimeFormat;
-				scope.required = attributes.required;
-				scope.showWeekNumbers = (attributes.showWeekNumbers !== undefined);
+				scope.constraints = {
+					dateFormat: scope.dateFormat || dateTimePickerConfig.dateTimeFormat,
+					dateMin: scope.dateMin,
+					dateMax: scope.dateMax,
+					hourMin: scope.hourMin,
+					hourMax: scope.hourMax,
+					minuteStep: scope.minuteStep,
+					required: attributes.required,
+					showWeekNumbers: attributes.showWeekNumbers !== undefined
+				};
 			},
 			controller: 'DateTimePickerCtrl'
 		};

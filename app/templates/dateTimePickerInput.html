@@ -1,9 +1,11 @@
-<div class="input-group">
+<div class="input-group" 
+	 ng-form="inputForm"
+	 ng-class="{'has-error': inputForm.$invalid}">
 	<input type="text"
 		   class="datepicker-input form-control"
 		   ng-model="ngModel"
-		   date-format="{{dateFormat}}"
-		   date-picker-input="pickType" />
+		   date-picker-input="pickType"
+		   input-constraints="constraints" />
 	<span class="input-group-btn">
 		<button class="btn btn-default"
 				ng-click="pickDate()">

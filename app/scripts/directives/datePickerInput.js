@@ -7,32 +7,98 @@
 
 	datePickerInput.$inject = ['$dateParser', 'dateFilter', 'dateTimePickerConfig'];
 
-	function datePickerInput($dateParser, dateFilter) {
+	function datePickerInput($dateParser, dateFilter, dateTimePickerConfig) {
 		return {
 			scope: {
-				dateFormat: '@',
-				datePickerInput: '='
+				inputConstraints: '=',
+				pickType: '=datePickerInput'
 			},
 			require: 'ngModel',
-			link: function(scope, elem, attributes, ngModelController) {
-				// invoke manually formatters when dateFormat is 
-				// properly assigned. They are run for first time
-				// when dateFormat is not assigned yet
-				attributes.$observe('dateFormat', function (dateFormat) {
-					if (ngModelController.$modelValue) {
-						ngModelController.$modelValue = new Date(ngModelController.$modelValue.getTime());
-					}
-				});
-				
+			link: function(scope, elem, attributes, ngModelController) {				
 				if (ngModelController) {
 					ngModelController.$parsers.push(function(dateString) {
-						var date = $dateParser(dateString, scope.dateFormat);
-						return date === undefined ? dateString : date;
+						if (dateString === '') {
+							return undefined;
+						}
+						
+						var date = $dateParser(dateString, scope.inputConstraints.dateFormat);
+						
+						if (date !== undefined) {
+							if (thereIsDatepicker()) {
+								if (dateDoesNotFulfillConstraints(date)) {
+									markDateAsInvalidBecauseOf('date');
+									return dateString;
+								}
+							}
+							
+							if (thereIsTimepicker()) {
+								if (minutesDoNotMatchMinuteStep(date)) {
+									markDateAsInvalidBecauseOf('date');
+									return dateString;
+								}
+								if (hourDoesNotFulfillConstraints(date)) {
+									markDateAsInvalidBecauseOf('date');
+									return dateString;
+								}
+							}
+							
+							markDateAsValid();
+							return date;
+						} else {
+							markDateAsInvalidBecauseOf('format');
+							return dateString;
+						}
 					});
 
 					ngModelController.$formatters.push(function(date) {
-						return dateFilter(date, scope.dateFormat);
+						markDateAsValid();
+						return dateFilter(date, scope.inputConstraints.dateFormat);
 					});
+				}
+				
+				
+				function markDateAsValid() {
+					ngModelController.$setValidity('format', true);
+					ngModelController.$setValidity('date', true);
+				}
+				
+				function markDateAsInvalidBecauseOf(reason) {
+					ngModelController.$setValidity(reason, false);
+				}
+				
+				function thereIsDatepicker() {
+					return scope.pickType === 'datetime' ||
+						scope.pickType === 'date';
+				}
+				
+				function thereIsTimepicker() {
+					return scope.pickType === 'datetime' ||
+						scope.pickType === 'time';
+				}
+				
+				function dateDoesNotFulfillConstraints(date) {
+					var dateMin = scope.inputConstraints.dateMin || dateTimePickerConfig.minimumDate;
+					var dateMax = scope.inputConstraints.dateMax || dateTimePickerConfig.maximumDate;
+					
+					return date < dateMin || date > dateMax;
+				}
+				
+				function minutesDoNotMatchMinuteStep(date) {
+					var minuteStep = scope.inputConstraints.minuteStep || dateTimePickerConfig.minuteStep;
+					return date.getMinutes() % minuteStep !== 0;
+				}
+				
+				function hourDoesNotFulfillConstraints(date) {
+					var hourMin = scope.inputConstraints.hourMin;
+					if (hourMin === undefined) {
+						hourMin = dateTimePickerConfig.minimumHour;
+					}
+					var hourMax = scope.inputConstraints.hourMax;
+					if (hourMax === undefined) {
+						hourMax = dateTimePickerConfig.maximumHour;
+					}
+					
+					return date.getHours() < hourMin || date.getHours() > hourMax;
 				}
 			}
 		};

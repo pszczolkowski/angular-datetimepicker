@@ -20,8 +20,14 @@
 			replace: true,
 			link: function (scope, element, attributes) {
 				scope.pickType = 'time';
-				scope.dateFormat = scope.dateFormat || dateTimePickerConfig.timeFormat;
-				scope.required = attributes.required;
+				scope.constraints = {
+					dateFormat: scope.dateFormat || dateTimePickerConfig.timeFormat,
+					hourMin: scope.hourMin,
+					hourMax: scope.hourMax,
+					minuteStep: scope.minuteStep,
+					required: attributes.required,
+					showWeekNumbers: attributes.showWeekNumbers !== undefined
+				};
 			},
 			controller: 'DateTimePickerCtrl'
 		};
