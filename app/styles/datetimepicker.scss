@@ -1,28 +1,41 @@
+.datepicker-calendar-day {
+	cursor: pointer;
+
+	&:hover:not(.datepicker-disabled) {
+		background-color: #eee;
+	}
+}
+
 .datepicker-other-month {
-	color: #bbb;
+	color: #666;
+	font-size: 80%;
+	vertical-align: middle !important;
 }
 
 .datepicker-today {
-	background-color: orange;
+	background-color: #fedfab;
+	color: #E79500;
+	font-weight: bold;
+	
+	&:hover:not(.datepicker-disabled) {
+		background-color: #FFD088;
+	}
 }
 
 #datepicker-calendar {
 	margin-top: 30px;
 }
 
-.datepicker-calendar-day {
-	cursor: pointer;
-
-	&:hover {
-		background-color: #eee;
-	}
-}
-
 .datepicker-selected {
-	background-color: red;
+	$backgroundColor: #F26B6B;
+	
+	background-color: $backgroundColor;
+	color: #B93030;
+	cursor: default;
+	font-weight: bold;
 
-	&:hover {
-		background-color: #FF5555;
+	&:hover:not(.datepicker-disabled) {
+		background-color: $backgroundColor;
 	}
 }
 
@@ -52,8 +65,10 @@
 }
 
 .datepicker-disabled {
-	background-color: gray;
+	color: #bbb;
 	cursor: default;
+	
+	&:hover {}
 }
 
 .datepicker-calendar-weekno {
