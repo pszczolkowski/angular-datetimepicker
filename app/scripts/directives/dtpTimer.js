@@ -125,10 +125,12 @@
 
 			function hourChange() {
 				scope.ngModel.setHours(scope.selectedTime.hour);
+				synchronizeFieldsWithModel();
 			}
 
 			function minuteChange() {
 				scope.ngModel.setMinutes(scope.selectedTime.minute);
+				synchronizeFieldsWithModel();
 			}
 		}
 	}
