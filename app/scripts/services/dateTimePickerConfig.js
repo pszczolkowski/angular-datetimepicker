@@ -11,6 +11,9 @@
 			maximumDate: new Date(2099, 11, 31, 23, 59),
 			minimumHour: 0,
 			maximumHour: 23,
-			minuteStep: 1
+			minuteStep: 1,
+			calendarTemplate: 'templates/dateTimePickerCalendar.html',
+			timerTemplate: 'templates/dateTimePickerTimer.html',
+			modalTemplate: 'templates/dateTimePickerModal.html'
 		});
 })();

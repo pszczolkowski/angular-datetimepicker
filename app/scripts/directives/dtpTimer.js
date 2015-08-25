@@ -9,7 +9,9 @@
 
 	function dtpTimer(dateTimePickerConfig) {
 		return {
-			templateUrl: 'templates/dateTimePickerTimer.html',
+			templateUrl: function(){
+				return dateTimePickerConfig.timerTemplate;
+			},
 			require: 'ngModel',
 			scope: {
 				ngModel: '=',
@@ -63,7 +65,7 @@
 				} else {
 					roundTimeToMinuteStep();
 				}
-				
+
 				synchronizeFieldsWithModel();
 			}
 
@@ -75,10 +77,10 @@
 					scope.ngModel.setHours(scope.ngModel.getHours() + 1);
 					rounded = 0;
 				}
-				
+
 				scope.ngModel.setMinutes(rounded);
 			}
-			
+
 			function synchronizeFieldsWithModel() {
 				scope.selectedTime.hour = scope.ngModel.getHours();
 				scope.selectedTime.minute = scope.ngModel.getMinutes();
@@ -87,7 +89,7 @@
 			function generateHours() {
 				var hourMax = scope.constraints.hourMax === undefined ? 23 : scope.constraints.hourMax;
 				var hourMin = scope.constraints.hourMin === undefined ? 0 : scope.constraints.hourMin;
-				
+
 				for (var i = hourMax; i >= hourMin; i--) {
 					scope.hours.push(i);
 				}

@@ -13,7 +13,7 @@
 		function pickDate() {
 			var modalInstance = $modal.open({
 				size: 'md',
-				templateUrl: 'templates/dateTimePickerModal.html',
+				templateUrl: dateTimePickerConfig.modalTemplate,
 				controller: 'DateTimePickerModalCtrl',
 				resolve: {
 					pickType: function () {

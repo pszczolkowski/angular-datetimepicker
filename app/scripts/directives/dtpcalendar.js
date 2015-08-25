@@ -9,7 +9,9 @@
 
 	function dtpCalendar(Day, dateTimePickerConfig) {
 		return {
-			templateUrl: 'templates/dateTimePickerCalendar.html',
+			templateUrl: function() {
+				return dateTimePickerConfig.calendarTemplate;
+			},
 			require: 'ngModel',
 			scope: {
 				ngModel: '=',
@@ -44,12 +46,12 @@
 				prepareWeeksForView();
 			});
 
-			
+
 			function synchronizeFieldsWithModel() {
 				scope.calendarMonth = monthDate.getMonth();
 				scope.calendarYear = monthDate.getFullYear();
 			}
-			
+
 			function selectDay(day) {
 				if (day.before(scope.dateMin) || day.after(scope.dateMax)) {
 					return;
@@ -108,11 +110,11 @@
 				var weekNo = Math.ceil(( ( (date - yearStart) / 86400000) + 1) / 7);
 				return weekNo;
 			}
-			
+
 			function goToSelectedDay() {
 				monthDate.setFullYear(scope.ngModel.getFullYear());
 				monthDate.setMonth(scope.ngModel.getMonth());
-				
+
 				synchronizeFieldsWithModel();
 				prepareWeeksForView();
 			}
