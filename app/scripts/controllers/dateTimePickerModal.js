@@ -23,7 +23,7 @@
 
 	function DateTimePickerModalCtrl($scope, $modalInstance, dateTimePickerConfig, pickType, selectedDate, constraints) {
 		var now = new Date();
-		
+
 		if (!(selectedDate instanceof Date)) {
 			selectedDate = new Date();
 		}
@@ -41,12 +41,15 @@
 			selectedDay: selectedDate ? new Date(selectedDate.getTime()) : new Date(),
 			selectedTime: selectedDate ? new Date(selectedDate.getTime()) : new Date()
 		};
+		$scope.allMonths = MONTHS;
 		$scope.months = [];
 		$scope.years = [];
 		$scope.minusMonth = minusMonth;
 		$scope.plusMonth = plusMonth;
+		$scope.setMonth = setMonth;
 		$scope.plusYear = plusYear;
 		$scope.minusYear = minusYear;
+		$scope.setYear = setYear;
 		$scope.confirm = confirm;
 		$scope.cancel = cancel;
 		$scope.selectToday = selectToday;
@@ -77,6 +80,10 @@
 			addMonths(1);
 		}
 
+		function setMonth(month) {
+			$scope.calendar.month = month.num;
+		}
+
 		function addYears(quantity) {
 			$scope.calendar.year += quantity;
 			generateMonths();
@@ -89,6 +96,10 @@
 
 		function plusYear() {
 			addYears(1);
+		}
+
+		function setYear(year) {
+			$scope.calendar.year = year;
 		}
 
 		function generateMonths() {

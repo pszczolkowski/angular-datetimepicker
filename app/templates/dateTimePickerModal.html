@@ -1,55 +1,76 @@
-<div class="modal-body">
+<div id="datepicker-body" class="modal-body">
 
 	<div class="row" ng-if="pickType === 'date' || pickType === 'datetime'">
 
 		<div class="col-xs-12 col-sm-7">
-			<div class="input-group">
-				<span class="input-group-btn">
+			<div class="btn-group input-group">
+				<div class="input-group-btn">
 					<button class="btn btn-default"
 							ng-click="minusMonth()"
 							ng-disabled="calendar.month === constraints.dateMin.getMonth() && calendar.year === constraints.dateMin.getFullYear()">
 							<span class="glyphicon glyphicon-chevron-left"></span>
 					</button>
-				</span>
+				</div>
 
-				<select class="form-control"
-						ng-model="calendar.month"
-						ng-options="month.num as month.name for month in months">
-				</select>
+				<div id="datepicker-month-select" class="btn-group" style="width: 100%; display: block">
+					<button type="button"
+							class="btn btn-default btn-block dropdown-toggle"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="true">
+								{{allMonths[calendar.month].name}}
+								<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li ng-repeat="month in months">
+							<a href="#" ng-click="setMonth(month)">{{month.name}}</a>
+						</li>
+					</ul>
+				</div>
 
-				<span class="input-group-btn">
+				<div class="input-group-btn">
 					<button class="btn btn-default"
 							ng-click="plusMonth()"
 							ng-disabled="calendar.month === constraints.dateMax.getMonth() && calendar.year === constraints.dateMax.getFullYear()">
 							<span class="glyphicon glyphicon-chevron-right"></span>
 					</button>
-				</span>
+				</div>
 			</div>
 		</div>
 
 		<div class="col-xs-12 col-sm-5">
-			<div class="input-group">
-				<span class="input-group-btn">
+			<div class="btn-group input-group">
+				<div class="input-group-btn">
 					<button class="btn btn-default"
 							ng-click="minusYear()"
 							ng-disabled="calendar.year === constraints.dateMin.getFullYear()">
-							<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="glyphicon glyphicon-chevron-left"></span>
 					</button>
-				</span>
+				</div>
 
-				<select class="form-control"
-						ng-model="calendar.year"
-						ng-options="year for year in years track by year">
-				</select>
+				<div id="datepicker-year-select" class="btn-group" style="width: 100%; display: block">
+					<button type="button"
+							class="btn btn-default btn-block dropdown-toggle"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="true">
+						{{calendar.year}}
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li ng-repeat="year in years">
+							<a href="#" ng-click="setYear(year)">{{year}}</a>
+						</li>
+					</ul>
+				</div>
 
-
-				<span class="input-group-btn">
+				<div class="input-group-btn">
 					<button class="btn btn-default"
 							ng-click="plusYear()"
 							ng-disabled="calendar.year === constraints.dateMax.getFullYear()">
-							<span class="glyphicon glyphicon-chevron-right"></span>
+						<span class="glyphicon glyphicon-chevron-right"></span>
 					</button>
-				</span>
+				</div>
 			</div>
 		</div>
 

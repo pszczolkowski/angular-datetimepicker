@@ -16,7 +16,7 @@
 	background-color: #fedfab;
 	color: #E79500;
 	font-weight: bold;
-	
+
 	&:hover:not(.datepicker-disabled) {
 		background-color: #FFD088;
 	}
@@ -30,7 +30,7 @@
 
 .datepicker-selected {
 	$backgroundColor: #F26B6B;
-	
+
 	background-color: $backgroundColor;
 	color: #B93030;
 	cursor: default;
@@ -69,7 +69,7 @@
 .datepicker-disabled {
 	color: #bbb;
 	cursor: default;
-	
+
 	&:hover {}
 }
 
@@ -90,17 +90,17 @@
 		font-size: 30px;
 		width: 70px;
 	}
-	
-	.dropdown-menu {
-		max-height: 300px;
-		min-width: auto;
-		overflow: auto;
-		text-align: center;
-		width: 70px;
-	}
 }
 
 .datepicker-selected-day-label {
 	border: 1px solid #ddd;
 	text-align: center;
+}
+
+#datepicker-body .dropdown-menu {
+	max-height: 300px;
+	min-width: unset;
+	overflow: auto;
+	text-align: center;
+	width: 100%;
 }
