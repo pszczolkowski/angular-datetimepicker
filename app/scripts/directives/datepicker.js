@@ -25,7 +25,7 @@
 					dateMin: scope.dateMin,
 					dateMax: scope.dateMax,
 					required: attributes.required,
-					showWeekNumbers: attributes.showWeekNumbers !== undefined
+					showWeekNumbers: (attributes.showWeekNumbers !== undefined ? true : dateTimePickerConfig.showWeekNumbers)
 				};
 			},
 			controller: 'DateTimePickerCtrl'

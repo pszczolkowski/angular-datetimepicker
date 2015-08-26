@@ -30,7 +30,7 @@
 					hourMax: scope.hourMax,
 					minuteStep: scope.minuteStep,
 					required: attributes.required,
-					showWeekNumbers: attributes.showWeekNumbers !== undefined
+					showWeekNumbers: (attributes.showWeekNumbers !== undefined ? true : dateTimePickerConfig.showWeekNumbers)
 				};
 			},
 			controller: 'DateTimePickerCtrl'

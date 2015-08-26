@@ -12,6 +12,7 @@
 			minimumHour: 0,
 			maximumHour: 23,
 			minuteStep: 1,
+			showWeekNumbers: false,
 			calendarTemplate: 'templates/dateTimePickerCalendar.html',
 			timerTemplate: 'templates/dateTimePickerTimer.html',
 			modalTemplate: 'templates/dateTimePickerModal.html'
