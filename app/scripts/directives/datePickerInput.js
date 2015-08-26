@@ -14,11 +14,17 @@
 				pickType: '=datePickerInput'
 			},
 			require: 'ngModel',
-			link: function(scope, elem, attributes, ngModelController) {				
+			link: function(scope, elem, attributes, ngModelController) {		
 				if (ngModelController) {
 					ngModelController.$parsers.push(function(dateString) {
 						if (dateString === '') {
-							return undefined;
+							if (scope.inputConstraints.required) {
+								markDateAsInvalidBecauseOf('required');
+							} else {
+								markDateAsValid();
+							}
+							
+							return null;
 						}
 						
 						var date = $dateParser(dateString, scope.inputConstraints.dateFormat);
@@ -60,6 +66,7 @@
 				function markDateAsValid() {
 					ngModelController.$setValidity('format', true);
 					ngModelController.$setValidity('date', true);
+					ngModelController.$setValidity('required', true);
 				}
 				
 				function markDateAsInvalidBecauseOf(reason) {
