@@ -25,9 +25,9 @@
 		var now = new Date();
 
 		if (!(selectedDate instanceof Date)) {
-			selectedDate = new Date();
+			selectedDate = undefined;
 		}
-
+		
 		constraints.dateMin = constraints.dateMin || dateTimePickerConfig.minimumDate;
 		constraints.dateMax = constraints.dateMax || dateTimePickerConfig.maximumDate;
 
@@ -35,11 +35,11 @@
 		$scope.calendar = {
 			month: 	selectedDate ? selectedDate.getMonth() : now.getMonth(),
 			year: selectedDate ? selectedDate.getFullYear() : now.getFullYear(),
-			selectedDayDate: selectedDate ? selectedDate : new Date()
+			selectedDayDate: selectedDate
 		};
 		$scope.date = {
-			selectedDay: selectedDate ? new Date(selectedDate.getTime()) : new Date(),
-			selectedTime: selectedDate ? new Date(selectedDate.getTime()) : new Date()
+			selectedDay: selectedDate ? new Date(selectedDate.getTime()) : undefined,
+			selectedTime: selectedDate ? new Date(selectedDate.getTime()) : undefined
 		};
 		$scope.allMonths = MONTHS;
 		$scope.months = [];
@@ -133,8 +133,11 @@
 			if ($scope.date.selectedDay !== undefined) {
 				returnDate = new Date();
 				returnDate.setTime($scope.date.selectedDay.getTime());
-				returnDate.setHours($scope.date.selectedTime.getHours());
-				returnDate.setMinutes($scope.date.selectedTime.getMinutes());
+				
+				if (pickType === 'datetime' || pickType === 'time') {
+					returnDate.setHours($scope.date.selectedTime.getHours());
+					returnDate.setMinutes($scope.date.selectedTime.getMinutes());
+				}
 			}
 
 			$modalInstance.close(returnDate);

@@ -26,12 +26,13 @@
 
 
 		function link(scope) {
-			var date;
-			var monthDate = getDateWithMonthFrom(scope.ngModel);
+			var date,
+				now = new Date(),
+				monthDate = scope.ngModel ? getDateWithMonthFrom(scope.ngModel) : getDateWithMonthFrom(now);
 			scope.weeks = [];
 			scope.dateMin = scope.dateMin || dateTimePickerConfig.minimumDate;
 			scope.dateMax = scope.dateMax || dateTimePickerConfig.maximumDate;
-			scope.today = new Day(new Date());
+			scope.today = new Day(now);
 			scope.selectDay = selectDay;
 			scope.goToSelectedDay = goToSelectedDay;
 			scope.dateFormat = dateTimePickerConfig.dateFormat;
