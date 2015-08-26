@@ -5,9 +5,9 @@
 		.module('pszczolkowski.dateTimePicker')
 		.directive('dtpCalendar', dtpCalendar);
 
-	dtpCalendar.$inject = ['dtpDay', 'dateTimePickerConfig'];
+	dtpCalendar.$inject = ['dtpDay', 'dateTimePickerConfig', 'dtpUtils'];
 
-	function dtpCalendar(Day, dateTimePickerConfig) {
+	function dtpCalendar(Day, dateTimePickerConfig, utils) {
 		return {
 			templateUrl: function() {
 				return dateTimePickerConfig.calendarTemplate;
@@ -75,13 +75,13 @@
 
 				scope.weeks = [];
 
-				if (isSunday(startDate)) {
+				if (utils.isSunday(startDate)) {
 					startDate.setDate(startDate.getDate() - 6);
 				} else {
 					startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
 				}
 
-				if (!isSunday(endDate)) {
+				if (!utils.isSunday(endDate)) {
 					endDate.setDate(endDate.getDate() + 7 - endDate.getDay());
 				}
 
@@ -97,10 +97,6 @@
 					week.days.push(new Day(startDate));
 					startDate.setDate(startDate.getDate() + 1);
 				}
-			}
-
-			function isSunday(date) {
-				return date.getDay() === 0;
 			}
 
 			function getWeekNumberFor(date) {
