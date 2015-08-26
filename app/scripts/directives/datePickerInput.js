@@ -5,9 +5,9 @@
 		.module('pszczolkowski.dateTimePicker')
 		.directive('datePickerInput', datePickerInput);
 
-	datePickerInput.$inject = ['$dateParser', 'dateFilter', 'dateTimePickerConfig'];
+	datePickerInput.$inject = ['$dateParser', 'dateFilter', 'dateTimePickerConfig', 'dtpUtils'];
 
-	function datePickerInput($dateParser, dateFilter, dateTimePickerConfig) {
+	function datePickerInput($dateParser, dateFilter, dateTimePickerConfig, utils) {
 		return {
 			scope: {
 				inputConstraints: '=',
@@ -79,6 +79,7 @@
 				function dateDoesNotFulfillConstraints(date) {
 					var dateMin = scope.inputConstraints.dateMin || dateTimePickerConfig.minimumDate;
 					var dateMax = scope.inputConstraints.dateMax || dateTimePickerConfig.maximumDate;
+					dateMax = utils.endOfDay(dateMax);
 					
 					return date < dateMin || date > dateMax;
 				}
