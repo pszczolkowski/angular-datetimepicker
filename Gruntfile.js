@@ -10,12 +10,16 @@ module.exports = function (grunt) {
 	require('jit-grunt')(grunt, {
 		ngtemplates: 'grunt-angular-templates'
 	});
+	
+	var bowerJson = require('./bower.json');
 
 	// Configurable paths for the application
 	var appConfig = {
-		app: require('./bower.json').appPath || 'app',
+		app: bowerJson.appPath || 'app',
 		dist: 'dist',
-		tmp: '.tmp'
+		tmp: '.tmp',
+		module: 'pszczolkowski.dateTimePicker',
+		version: bowerJson.version
 	};
 
 	// Define the configuration for all the tasks
@@ -238,10 +242,11 @@ module.exports = function (grunt) {
 		ngtemplates: {
 			dist: {
 				options: {
-					module: 'pszczolkowski.datePicker',
+					module: '<%= yeoman.module %>',
 					htmlmin: '<%= htmlmin.dist.options %>'
 				},
-				src: '<%= yeoman.app %>/templates/*.html',
+				cwd: '<%= yeoman.app %>',
+				src: 'templates/*.html',
 				dest: '<%= yeoman.tmp %>/templates.js'
 			}
 		},
@@ -268,11 +273,11 @@ module.exports = function (grunt) {
 				separator: '\n'
 			},
 			js: {
-				src: ['<%= yeoman.app %>/scripts/{directives,controllers,filters,services}/*.js', '<%= yeoman.tmp %>/templates.js',
+				src: ['<%= yeoman.app %>/scripts/**/*.js', '<%= yeoman.tmp %>/templates.js',
 					'!<%= yeoman.app %>/scripts/controllers/demo.js'],
-				dest: '<%= yeoman.dist %>/index.js',
+				dest: '<%= yeoman.dist %>/angular-datetimepicker.js',
 				options: {
-					banner:'\'use strict\';\n(function(angular){\n',
+					banner:'// version: <%= yeoman.version %>\n\n\'use strict\';\n(function(angular){\n',
 					footer:'})(angular);',
 					// Replace all 'use strict' statements in the code with a single one at the top
 					process: function(src) {
@@ -281,8 +286,8 @@ module.exports = function (grunt) {
 				}
 			},
 			css: {
-				src: ['<%= yeoman.tmp %>/styles/*.css'],
-				dest: '<%= yeoman.dist %>/index.css'
+				src: ['<%= yeoman.tmp %>/styles/datetimepicker.css'],
+				dest: '<%= yeoman.dist %>/angular-datetimepicker.css'
 			}
 		},
 
@@ -302,7 +307,10 @@ module.exports = function (grunt) {
 				cwd: '<%= yeoman.dist %>',
 				src: ['*.js'],
 				dest: '<%= yeoman.dist %>',
-				ext: '.min.js'
+				ext: '.min.js',
+				options: {
+					banner:'// version: <%= yeoman.version %>\n\n'
+				}
 			}
 		},
 
