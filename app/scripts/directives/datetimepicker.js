@@ -30,6 +30,7 @@
 					hourMax: scope.hourMax,
 					minuteStep: scope.minuteStep,
 					required: attributes.required,
+					placeholder: attributes.placeholder,
 					showWeekNumbers: (attributes.showWeekNumbers !== undefined ? true : dateTimePickerConfig.showWeekNumbers)
 				};
 			},
