@@ -5,10 +5,17 @@
 		.module('pszczolkowski.dateTimePicker')
 		.controller('DateTimePickerCtrl', DateTimePickerCtrl);
 
-	DateTimePickerCtrl.$inject = ['$scope', '$modal', 'dateTimePickerConfig'];
+	DateTimePickerCtrl.$inject = ['$scope', '$timeout', '$modal', 'dateTimePickerConfig', 'dtpUtils'];
 
-	function DateTimePickerCtrl($scope, $modal, dateTimePickerConfig) {
+	function DateTimePickerCtrl($scope, $timeout, $modal, dateTimePickerConfig, utils) {
 		$scope.pickDate = pickDate;
+
+		$timeout(function () {
+			if ($scope.ngModel) {
+				$scope.ngModel = utils.roundTimeToMinuteStep($scope.ngModel, $scope.constraints.minuteStep || dateTimePickerConfig.minuteStep);
+			}
+		});
+
 
 		function pickDate() {
 			var modalInstance = $modal.open({

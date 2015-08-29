@@ -5,9 +5,9 @@
 		.module('pszczolkowski.dateTimePicker')
 		.directive('dtpTimer', dtpTimer);
 
-	dtpTimer.$inject = ['dateTimePickerConfig'];
+	dtpTimer.$inject = ['dateTimePickerConfig', 'dtpUtils'];
 
-	function dtpTimer(dateTimePickerConfig) {
+	function dtpTimer(dateTimePickerConfig, utils) {
 		return {
 			templateUrl: function(){
 				return dateTimePickerConfig.timerTemplate;
@@ -70,15 +70,7 @@
 			}
 
 			function roundTimeToMinuteStep() {
-				var minutes = scope.ngModel.getMinutes();
-				var rounded = scope.constraints.minuteStep * Math.round(minutes / scope.constraints.minuteStep);
-
-				if (rounded > 59) {
-					scope.ngModel.setHours(scope.ngModel.getHours() + 1);
-					rounded = 0;
-				}
-
-				scope.ngModel.setMinutes(rounded);
+				scope.ngModel = utils.roundTimeToMinuteStep(scope.ngModel, scope.constraints.minuteStep);
 			}
 
 			function synchronizeFieldsWithModel() {
