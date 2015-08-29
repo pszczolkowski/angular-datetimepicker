@@ -96,23 +96,28 @@
 			}
 
 			function generateMinutes() {
-				for (var i = 60 - scope.constraints.minuteStep; i >= 0; i -= scope.constraints.minuteStep) {
-					scope.minutes.push(i);
+				scope.minutes = [];
+
+				if (scope.constraints.hourMax !== undefined && scope.ngModel.getHours() >= scope.constraints.hourMax) {
+					scope.minutes.push(0);
+				}else  {
+					for (var i = 60 - scope.constraints.minuteStep; i >= 0; i -= scope.constraints.minuteStep) {
+						scope.minutes.push(i);
+					}
 				}
 			}
 
 			function addHours(quantity) {
-				scope.ngModel.setHours(scope.ngModel.getHours() + quantity);
-				validateHourConstraints();
+				setHour(scope.ngModel.getHours() + quantity);
 			}
 
 			function validateHourConstraints() {
 				if (scope.constraints.hourMin !== undefined && scope.ngModel.getHours() < scope.constraints.hourMin) {
 					scope.ngModel.setHours(scope.constraints.hourMin);
-				} else if (scope.constraints.hourMax !== undefined && scope.ngModel.getHours() > scope.constraints.hourMax) {
+				} else if (scope.constraints.hourMax !== undefined && scope.ngModel.getHours() >= scope.constraints.hourMax) {
 					scope.ngModel.setHours(scope.constraints.hourMax);
+					scope.ngModel.setMinutes(0);
 				}
-				synchronizeFieldsWithModel();
 			}
 
 			function minusHour() {
@@ -137,7 +142,9 @@
 
 			function setHour(hour) {
 				scope.ngModel.setHours(hour);
+				validateHourConstraints();
 				synchronizeFieldsWithModel();
+				generateMinutes();
 			}
 
 			function setMinute(minute) {

@@ -5,12 +5,12 @@
 				ng-disabled="selectedTime.hour === constraints.hourMax">
 			<span class="glyphicon glyphicon-chevron-up"></span>
 		</button>
-		
+
 		<div class="datepicker-time-view btn-group">
 			<button type="button"
-					class="btn btn-default dropdown-toggle" 
-					data-toggle="dropdown" 
-					aria-haspopup="true" 
+					class="btn btn-default dropdown-toggle"
+					data-toggle="dropdown"
+					aria-haspopup="true"
 					aria-expanded="true">
 						{{selectedTime.hour}}
 						<span class="caret"></span>
@@ -21,7 +21,7 @@
 				</li>
 			</ul>
 		</div>
-		
+
 		<button class="btn btn-default"
 				ng-click="minusHour()"
 				ng-disabled="selectedTime.hour === constraints.hourMin">
@@ -33,16 +33,18 @@
 
 	<div class="btn-group-vertical">
 		<button class="btn btn-default"
-				ng-click="plusMinute()">
+				ng-click="plusMinute()"
+				ng-disabled="selectedTime.hour === constraints.hourMax">
 			<span class="glyphicon glyphicon-chevron-up"></span>
 		</button>
-		
+
 		<div class="datepicker-time-view btn-group">
 			<button type="button"
-					class="btn btn-default dropdown-toggle" 
-					data-toggle="dropdown" 
-					aria-haspopup="true" 
-					aria-expanded="true">
+					class="btn btn-default dropdown-toggle"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="true"
+					ng-disabled="selectedTime.hour === constraints.hourMax">
 						{{selectedTime.minute | leadingZeros}}
 						<span class="caret"></span>
 			</button>
@@ -52,9 +54,10 @@
 				</li>
 			</ul>
 		</div>
-		
+
 		<button class="btn btn-default"
-				ng-click="minusMinute()">
+				ng-click="minusMinute()"
+				ng-disabled="selectedTime.hour === constraints.hourMax">
 			<span class="glyphicon glyphicon-chevron-down"></span>
 		</button>
 	</div>
