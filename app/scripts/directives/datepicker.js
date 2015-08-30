@@ -5,9 +5,9 @@
 		.module('pszczolkowski.dateTimePicker')
 		.directive('datePicker', datePicker);
 
-	datePicker.$inject = ['dateTimePickerConfig'];
+	datePicker.$inject = ['dateTimePicker'];
 
-	function datePicker(dateTimePickerConfig) {
+	function datePicker(dateTimePicker) {
 		return {
 			scope: {
 				ngModel: '=',
@@ -21,12 +21,12 @@
 			link: function (scope, element, attributes) {
 				scope.pickType = 'date';
 				scope.constraints = {
-					dateFormat: scope.dateFormat || dateTimePickerConfig.dateFormat,
+					dateFormat: scope.dateFormat || dateTimePicker.dateFormat,
 					dateMin: scope.dateMin,
 					dateMax: scope.dateMax,
 					required: attributes.required,
 					placeholder: attributes.placeholder,
-					showWeekNumbers: (attributes.showWeekNumbers !== undefined ? true : dateTimePickerConfig.showWeekNumbers)
+					showWeekNumbers: (attributes.showWeekNumbers !== undefined ? true : dateTimePicker.showWeekNumbers)
 				};
 			},
 			controller: 'DateTimePickerCtrl'

@@ -4,9 +4,9 @@
 	angular.module('pszczolkowski.dateTimePicker')
 		.directive('timePicker', timePicker);
 
-	timePicker.$inject = ['dateTimePickerConfig'];
+	timePicker.$inject = ['dateTimePicker'];
 
-	function timePicker(dateTimePickerConfig) {
+	function timePicker(dateTimePicker) {
 		return {
 			scope: {
 				ngModel: '=',
@@ -21,7 +21,7 @@
 			link: function (scope, element, attributes) {
 				scope.pickType = 'time';
 				scope.constraints = {
-					dateFormat: scope.dateFormat || dateTimePickerConfig.timeFormat,
+					dateFormat: scope.dateFormat || dateTimePicker.timeFormat,
 					hourMin: scope.hourMin,
 					hourMax: scope.hourMax,
 					minuteStep: scope.minuteStep,

@@ -5,12 +5,12 @@
 		.module('pszczolkowski.dateTimePicker')
 		.directive('dtpCalendar', dtpCalendar);
 
-	dtpCalendar.$inject = ['dtpDay', 'dateTimePickerConfig', 'dtpUtils'];
+	dtpCalendar.$inject = ['dtpDay', 'dateTimePicker', 'dtpUtils'];
 
-	function dtpCalendar(Day, dateTimePickerConfig, utils) {
+	function dtpCalendar(Day, dateTimePicker, utils) {
 		return {
 			templateUrl: function() {
-				return dateTimePickerConfig.calendarTemplate;
+				return dateTimePicker.calendarTemplate;
 			},
 			require: 'ngModel',
 			scope: {
@@ -30,12 +30,12 @@
 				now = new Date(),
 				monthDate = scope.ngModel ? getDateWithMonthFrom(scope.ngModel) : getDateWithMonthFrom(now);
 			scope.weeks = [];
-			scope.dateMin = scope.dateMin || dateTimePickerConfig.minimumDate;
-			scope.dateMax = scope.dateMax || dateTimePickerConfig.maximumDate;
+			scope.dateMin = scope.dateMin || dateTimePicker.minimumDate;
+			scope.dateMax = scope.dateMax || dateTimePicker.maximumDate;
 			scope.today = new Day(now);
 			scope.selectDay = selectDay;
 			scope.goToSelectedDay = goToSelectedDay;
-			scope.dateFormat = dateTimePickerConfig.dateFormat;
+			scope.dateFormat = dateTimePicker.dateFormat;
 
 			prepareWeeksForView();
 			scope.$watch('calendarMonth', function (month) {

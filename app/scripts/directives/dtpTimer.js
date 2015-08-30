@@ -5,12 +5,12 @@
 		.module('pszczolkowski.dateTimePicker')
 		.directive('dtpTimer', dtpTimer);
 
-	dtpTimer.$inject = ['dateTimePickerConfig', 'dtpUtils'];
+	dtpTimer.$inject = ['dateTimePicker', 'dtpUtils'];
 
-	function dtpTimer(dateTimePickerConfig, utils) {
+	function dtpTimer(dateTimePicker, utils) {
 		return {
 			templateUrl: function(){
-				return dateTimePickerConfig.timerTemplate;
+				return dateTimePicker.timerTemplate;
 			},
 			require: 'ngModel',
 			scope: {
@@ -27,7 +27,7 @@
 			scope.constraints = {
 				hourMin: scope.hourMin ? parseInt(scope.hourMin, 10) : undefined,
 				hourMax: scope.hourMax ? parseInt(scope.hourMax, 10) : undefined,
-				minuteStep: scope.minuteStep ? parseInt(scope.minuteStep, 10) : dateTimePickerConfig.minuteStep
+				minuteStep: scope.minuteStep ? parseInt(scope.minuteStep, 10) : dateTimePicker.minuteStep
 			};
 			scope.ngModel = scope.ngModel || new Date();
 			scope.hours = [];

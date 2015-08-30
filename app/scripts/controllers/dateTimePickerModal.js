@@ -5,17 +5,17 @@
 		.module('pszczolkowski.dateTimePicker')
 		.controller('DateTimePickerModalCtrl' , DateTimePickerModalCtrl);
 
-	DateTimePickerModalCtrl.$inject = ['$scope', '$modalInstance', 'dateTimePickerConfig', 'pickType', 'selectedDate', 'constraints'];
+	DateTimePickerModalCtrl.$inject = ['$scope', '$modalInstance', 'dateTimePicker', 'pickType', 'selectedDate', 'constraints'];
 
-	function DateTimePickerModalCtrl($scope, $modalInstance, dateTimePickerConfig, pickType, selectedDate, constraints) {
+	function DateTimePickerModalCtrl($scope, $modalInstance, dateTimePicker, pickType, selectedDate, constraints) {
 		var now = new Date();
 
 		if (!(selectedDate instanceof Date)) {
 			selectedDate = undefined;
 		}
 
-		constraints.dateMin = constraints.dateMin || dateTimePickerConfig.minimumDate;
-		constraints.dateMax = constraints.dateMax || dateTimePickerConfig.maximumDate;
+		constraints.dateMin = constraints.dateMin || dateTimePicker.minimumDate;
+		constraints.dateMax = constraints.dateMax || dateTimePicker.maximumDate;
 
 		$scope.pickType = pickType;
 		$scope.calendar = {
