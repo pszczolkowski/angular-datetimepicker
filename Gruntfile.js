@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 	require('jit-grunt')(grunt, {
 		ngtemplates: 'grunt-angular-templates'
 	});
-	
+
 	var bowerJson = require('./bower.json');
 
 	// Configurable paths for the application
@@ -277,7 +277,7 @@ module.exports = function (grunt) {
 					'!<%= yeoman.app %>/scripts/controllers/demo.js'],
 				dest: '<%= yeoman.dist %>/angular-datetimepicker.js',
 				options: {
-					banner:'// version: <%= yeoman.version %>\n\n\'use strict\';\n(function(angular){\n',
+					banner:'/*\n * Angular DateTimePicker\n * version: <%= yeoman.version %>\n */\n\n\'use strict\';\n(function(angular){\n',
 					footer:'})(angular);',
 					// Replace all 'use strict' statements in the code with a single one at the top
 					process: function(src) {
@@ -309,7 +309,7 @@ module.exports = function (grunt) {
 				dest: '<%= yeoman.dist %>',
 				ext: '.min.js',
 				options: {
-					banner:'// version: <%= yeoman.version %>\n\n'
+					banner: '/*\n * Angular DateTimePicker\n * version: <%= yeoman.version %>\n */\n'
 				}
 			}
 		},
