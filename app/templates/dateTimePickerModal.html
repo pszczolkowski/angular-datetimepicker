@@ -12,18 +12,43 @@
 					</button>
 				</div>
 
-				<div id="datepicker-month-select" class="btn-group">
+				<div id="datepicker-month-select" class="btn-group"
+					ng-init="allMonths[0] = {num: 0, name: 'stycz'}">
 					<button type="button"
 							class="btn btn-default btn-block dropdown-toggle"
 							data-toggle="dropdown"
 							aria-haspopup="true"
 							aria-expanded="true">
-								{{allMonths[calendar.month].name}}
-								<span class="caret"></span>
+						<span ng-switch="calendar.month">
+							<span ng-switch-when="0">January</span>
+							<span ng-switch-when="1">February</span>
+							<span ng-switch-when="2">March</span>
+							<span ng-switch-when="3">April</span>
+							<span ng-switch-when="4">May</span>
+							<span ng-switch-when="5">June</span>
+							<span ng-switch-when="6">July</span>
+							<span ng-switch-when="7">August</span>
+							<span ng-switch-when="8">September</span>
+							<span ng-switch-when="9">October</span>
+							<span ng-switch-when="10">November</span>
+							<span ng-switch-when="11">December</span>
+						</span>
+						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li ng-repeat="month in months">
-							<a href="#" ng-click="setMonth(month)">{{month.name}}</a>
+						<li>
+							<a href="" ng-click="setMonth(0)" ng-show="months[0]">January</a>
+							<a href="" ng-click="setMonth(1)" ng-show="months[0]">February</a>
+							<a href="" ng-click="setMonth(2)" ng-show="months[0]">March</a>
+							<a href="" ng-click="setMonth(3)" ng-show="months[0]">April</a>
+							<a href="" ng-click="setMonth(4)" ng-show="months[0]">May</a>
+							<a href="" ng-click="setMonth(5)" ng-show="months[0]">June</a>
+							<a href="" ng-click="setMonth(6)" ng-show="months[0]">July</a>
+							<a href="" ng-click="setMonth(7)" ng-show="months[0]">August</a>
+							<a href="" ng-click="setMonth(8)" ng-show="months[0]">September</a>
+							<a href="" ng-click="setMonth(9)" ng-show="months[0]">October</a>
+							<a href="" ng-click="setMonth(10)" ng-show="months[0]">November</a>
+							<a href="" ng-click="setMonth(11)" ng-show="months[0]">December</a>
 						</li>
 					</ul>
 				</div>

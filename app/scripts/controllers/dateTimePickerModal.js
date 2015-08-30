@@ -1,20 +1,6 @@
 (function(){
 	'use strict';
 
-	var MONTHS = [
-		{num: 0, name: 'January'},
-		{num: 1, name: 'February'},
-		{num: 2, name: 'March'},
-		{num: 3, name: 'April'},
-		{num: 4, name: 'May'},
-		{num: 5, name: 'June'},
-		{num: 6, name: 'July'},
-		{num: 7, name: 'August'},
-		{num: 8, name: 'September'},
-		{num: 9, name: 'October'},
-		{num: 10, name: 'November'},
-		{num: 11, name: 'December'}];
-
 	angular
 		.module('pszczolkowski.dateTimePicker')
 		.controller('DateTimePickerModalCtrl' , DateTimePickerModalCtrl);
@@ -27,7 +13,7 @@
 		if (!(selectedDate instanceof Date)) {
 			selectedDate = undefined;
 		}
-		
+
 		constraints.dateMin = constraints.dateMin || dateTimePickerConfig.minimumDate;
 		constraints.dateMax = constraints.dateMax || dateTimePickerConfig.maximumDate;
 
@@ -41,7 +27,6 @@
 			selectedDay: selectedDate ? new Date(selectedDate.getTime()) : undefined,
 			selectedTime: selectedDate ? new Date(selectedDate.getTime()) : undefined
 		};
-		$scope.allMonths = MONTHS;
 		$scope.months = [];
 		$scope.years = [];
 		$scope.minusMonth = minusMonth;
@@ -81,7 +66,7 @@
 		}
 
 		function setMonth(month) {
-			$scope.calendar.month = month.num;
+			$scope.calendar.month = month;
 		}
 
 		function addYears(quantity) {
@@ -105,15 +90,15 @@
 		function generateMonths() {
 			$scope.months = [];
 
-			for (var i = 0; i < MONTHS.length; i++) {
-				if ($scope.calendar.year === constraints.dateMin.getFullYear() && MONTHS[i].num < constraints.dateMin.getMonth()) {
-					continue;
+			for (var month = 0; month < 12; month++) {
+				if ($scope.calendar.year === constraints.dateMin.getFullYear() && month < constraints.dateMin.getMonth()) {
+					$scope.months[month] = false;
 				}
-				if ($scope.calendar.year === constraints.dateMax.getFullYear() && MONTHS[i].num > constraints.dateMax.getMonth()) {
-					continue;
+				if ($scope.calendar.year === constraints.dateMax.getFullYear() && month > constraints.dateMax.getMonth()) {
+					$scope.months[month] = false;
 				}
 
-				$scope.months.push(MONTHS[i]);
+				$scope.months[month] = true;
 			}
 		}
 
@@ -133,7 +118,7 @@
 			if ($scope.date.selectedDay !== undefined) {
 				returnDate = new Date();
 				returnDate.setTime($scope.date.selectedDay.getTime());
-				
+
 				if (pickType === 'datetime' || pickType === 'time') {
 					returnDate.setHours($scope.date.selectedTime.getHours());
 					returnDate.setMinutes($scope.date.selectedTime.getMinutes());
