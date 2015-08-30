@@ -17,11 +17,11 @@
 			link: function(scope, elem, attributes, ngModelController) {
 				if (ngModelController) {
 					ngModelController.$parsers.push(function(dateString) {
+						markDateAsValid();
+
 						if (dateString === '') {
 							if (scope.inputConstraints.required) {
 								markDateAsInvalidBecauseOf('required');
-							} else {
-								markDateAsValid();
 							}
 
 							return null;
@@ -48,7 +48,6 @@
 								}
 							}
 
-							markDateAsValid();
 							return date;
 						} else {
 							markDateAsInvalidBecauseOf('format');
@@ -58,6 +57,10 @@
 
 					ngModelController.$formatters.push(function(date) {
 						markDateAsValid();
+						if ((date === null || date === undefined) && scope.inputConstraints.required) {
+							markDateAsInvalidBecauseOf('required');
+						}
+
 						return dateFilter(date, scope.inputConstraints.dateFormat);
 					});
 				}
