@@ -141,7 +141,6 @@
 
 		function clear() {
 			$scope.date.selectedDay = undefined;
-			$scope.date.selectedTime = undefined;
 		}
 	}
 })();
