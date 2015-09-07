@@ -17,13 +17,13 @@
 
 /* line 16, ../../app/styles/datetimepicker.scss */
 .datepicker-today {
-  background-color: #fedfab;
-  color: #E79500;
+  background-color: #B4EEFF;
+  color: #5693FE;
   font-weight: bold;
 }
 /* line 21, ../../app/styles/datetimepicker.scss */
 .datepicker-today:hover:not(.datepicker-disabled) {
-  background-color: #FFD088;
+  background-color: #77D8F5;
 }
 
 /* line 26, ../../app/styles/datetimepicker.scss */
