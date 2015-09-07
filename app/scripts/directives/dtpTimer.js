@@ -121,7 +121,7 @@
 			}
 
 			function addMinutes(quantity) {
-				scope.selectedTime.minute = (scope.selectedTime.minute + quantity + 60) % 60;
+				setMinute((scope.selectedTime.minute + quantity + 60) % 60);
 			}
 
 			function minusMinute() {
