@@ -11,61 +11,62 @@
 .datepicker-other-month {
   color: #666;
   font-size: 80%;
+  font-style: italic;
   vertical-align: middle !important;
 }
 
-/* line 15, ../../app/styles/datetimepicker.scss */
+/* line 16, ../../app/styles/datetimepicker.scss */
 .datepicker-today {
   background-color: #fedfab;
   color: #E79500;
   font-weight: bold;
 }
-/* line 20, ../../app/styles/datetimepicker.scss */
+/* line 21, ../../app/styles/datetimepicker.scss */
 .datepicker-today:hover:not(.datepicker-disabled) {
   background-color: #FFD088;
 }
 
-/* line 25, ../../app/styles/datetimepicker.scss */
+/* line 26, ../../app/styles/datetimepicker.scss */
 #datepicker-calendar {
   margin-bottom: 10px;
   margin-top: 30px;
   table-layout: fixed;
 }
 
-/* line 31, ../../app/styles/datetimepicker.scss */
+/* line 32, ../../app/styles/datetimepicker.scss */
 .datepicker-selected {
-  background-color: #F26B6B;
-  color: #B93030;
+  background-color: #76E167;
+  color: #44812E;
   cursor: default;
   font-weight: bold;
 }
-/* line 39, ../../app/styles/datetimepicker.scss */
+/* line 40, ../../app/styles/datetimepicker.scss */
 .datepicker-selected:hover:not(.datepicker-disabled) {
-  background-color: #F26B6B;
+  background-color: #76E167;
 }
 
-/* line 44, ../../app/styles/datetimepicker.scss */
+/* line 45, ../../app/styles/datetimepicker.scss */
 .datepicker-buttons .btn {
   margin-bottom: 10px;
 }
 
-/* line 48, ../../app/styles/datetimepicker.scss */
+/* line 49, ../../app/styles/datetimepicker.scss */
 #datepicker-selected-label {
   font-weight: bold;
   text-align: center;
 }
 
-/* line 53, ../../app/styles/datetimepicker.scss */
+/* line 54, ../../app/styles/datetimepicker.scss */
 #datepicker-time {
   font-size: 25px;
 }
-/* line 56, ../../app/styles/datetimepicker.scss */
+/* line 57, ../../app/styles/datetimepicker.scss */
 #datepicker-time select {
   border: 1px solid #ccc;
   height: 50px;
 }
 
-/* line 62, ../../app/styles/datetimepicker.scss */
+/* line 63, ../../app/styles/datetimepicker.scss */
 #datepicker-calendar-wrapper,
 #datepicker-time {
   display: inline-block;
@@ -73,13 +74,13 @@
   vertical-align: middle;
 }
 
-/* line 69, ../../app/styles/datetimepicker.scss */
+/* line 70, ../../app/styles/datetimepicker.scss */
 .datepicker-disabled {
   color: #bbb;
   cursor: default;
 }
 
-/* line 76, ../../app/styles/datetimepicker.scss */
+/* line 77, ../../app/styles/datetimepicker.scss */
 .datepicker-calendar-weekno {
   border: none !important;
   border-right: 1px solid #ddd !important;
@@ -87,25 +88,25 @@
   vertical-align: middle !important;
 }
 
-/* line 83, ../../app/styles/datetimepicker.scss */
+/* line 84, ../../app/styles/datetimepicker.scss */
 #datepicker-timer {
   font-size: 30px;
 }
 
-/* line 88, ../../app/styles/datetimepicker.scss */
+/* line 89, ../../app/styles/datetimepicker.scss */
 #datepicker-timer .datepicker-time-view .btn {
   height: 70px;
   font-size: 30px;
   width: 70px;
 }
 
-/* line 95, ../../app/styles/datetimepicker.scss */
+/* line 96, ../../app/styles/datetimepicker.scss */
 .datepicker-selected-day-label {
   border: 1px solid #ddd;
   text-align: center;
 }
 
-/* line 100, ../../app/styles/datetimepicker.scss */
+/* line 101, ../../app/styles/datetimepicker.scss */
 #datepicker-body .dropdown-menu {
   max-height: 300px;
   min-width: unset;
@@ -114,7 +115,7 @@
   width: 100%;
 }
 
-/* line 108, ../../app/styles/datetimepicker.scss */
+/* line 109, ../../app/styles/datetimepicker.scss */
 #datepicker-month-select,
 #datepicker-year-select {
   display: block;
