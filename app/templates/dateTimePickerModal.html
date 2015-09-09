@@ -135,10 +135,10 @@
 
 <div class="modal-footer datepicker-buttons">
 	<div class="row">
-		<div class="col-xs-6 col-sm-3 text-left">
+		<div class="col-xs-6 col-sm-2 text-left">
 			<button class="btn btn-block btn-default"
-					ng-click="selectToday()"
-					ng-if="pickType === 'date' || pickType === 'datetime'">Select today
+					ng-click="jumpToToday()"
+					ng-if="pickType === 'date' || pickType === 'datetime'">Today
 			</button>
 		</div>
 		<div class="col-xs-6 col-sm-2 text-left">	
@@ -148,7 +148,7 @@
 			</button>
 		</div>
 
-		<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+		<div class="col-xs-12 col-sm-3 col-sm-offset-2">
 			<button class="btn btn-danger btn-block"
 					ng-click="cancel()">
 					<span class="glyphicon glyphicon-remove"></span> Cancel

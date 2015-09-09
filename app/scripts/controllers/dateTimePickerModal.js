@@ -37,7 +37,7 @@
 		$scope.setYear = setYear;
 		$scope.confirm = confirm;
 		$scope.cancel = cancel;
-		$scope.selectToday = selectToday;
+		$scope.jumpToToday = jumpToToday;
 		$scope.clear = clear;
 		$scope.constraints = constraints;
 
@@ -132,9 +132,8 @@
 			$modalInstance.dismiss('cancel');
 		}
 
-		function selectToday() {
+		function jumpToToday() {
 			var now = new Date();
-			$scope.date.selectedDay = now;
 			$scope.calendar.month = now.getMonth();
 			$scope.calendar.year = now.getFullYear();
 		}
