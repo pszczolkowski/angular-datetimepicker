@@ -1,6 +1,6 @@
 /*
  * Angular DateTimePicker
- * version: 1.0.2
+ * version: 1.0.3
  */
 
 'use strict';
@@ -852,7 +852,7 @@ $templateCache.put('templates/dateTimePickerCalendar.html',
 
 
   $templateCache.put('templates/dateTimePickerInput.html',
-    "<div class=\"input-group\" ng-form=\"inputForm\" ng-class=\"{'has-error': inputForm.$invalid}\"> <input type=\"text\" class=\"datepicker-input form-control\" ng-model=\"ngModel\" date-picker-input=\"pickType\" input-constraints=\"constraints\" placeholder=\"{{constraints.placeholder}}\"> <span class=\"input-group-btn\"> <button class=\"btn btn-default\" type=\"button\" ng-click=\"pickDate()\"> <span class=\"glyphicon glyphicon-calendar\"></span> </button> </span> </div>"
+    "<div ng-class=\"{'has-error': inputForm.$invalid && inputForm.$dirty}\" ng-form=\"outerForm\"> <div class=\"input-group\" ng-form=\"inputForm\"> <input type=\"text\" class=\"datepicker-input form-control\" ng-model=\"ngModel\" date-picker-input=\"pickType\" input-constraints=\"constraints\" placeholder=\"{{constraints.placeholder}}\"> <span class=\"input-group-btn\"> <button class=\"btn btn-default\" type=\"button\" ng-click=\"pickDate()\"> <span class=\"glyphicon glyphicon-calendar\"></span> </button> </span> </div> </div>"
   );
 
 
