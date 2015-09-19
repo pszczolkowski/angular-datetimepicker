@@ -106,3 +106,25 @@ There is possibility to define `placeholder` for directive like for any other `i
 ```html
 <date-picker ng-model="date" placeholder="enter date" />
 ```
+
+## Validation
+It is possible to display validation errors of DateTimePicker input, so user could be informed about invalid data that hey entered manually. In order to get access to validation errors, one have to put DateTimePicker inside `form`. There are three types of validation errors that DateTimePicker can produce:
+* `required` - when there is no data and directive is marked with `required` attribute
+* `format` - when date format is invalid
+* `date` - when date is out of imposed range, e.g. is before minimum date
+Validation could look like:
+```html
+<form name="someForm">
+	<date-picker name="theDay" ng-model="date" date-min="dateMin" required />
+	
+	<p ng-show="someForm.theDay.$error.required && someForm.theDay.$dirty" class="text-danger">
+		Field is required
+	</p>
+	<p ng-show="someForm.theDay.$error.format" class="text-danger">
+		Invalid date format
+	</p>
+	<p ng-show="someForm.theDay.$error.date" class="text-danger">
+		Date out of allowed range
+	</p>
+</form>
+```
