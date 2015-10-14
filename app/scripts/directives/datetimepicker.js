@@ -15,7 +15,8 @@
 				dateMax: '=',
 				hourMin: '@',
 				hourMax: '@',
-				minuteStep: '='
+				minuteStep: '=',
+				onChange: '&'
 			},
 			require: 'ngModel',
 			templateUrl: 'templates/dateTimePickerInput.html',

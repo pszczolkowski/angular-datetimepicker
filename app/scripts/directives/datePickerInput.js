@@ -15,6 +15,12 @@
 			},
 			require: 'ngModel',
 			link: function(scope, elem, attributes, ngModelController) {
+				elem.bind('keydown', function (event) {
+					if (event.which === 13) {
+						elem.blur();
+					}
+				});
+				
 				if (ngModelController) {
 					ngModelController.$parsers.push(function(dateString) {
 						markDateAsValid();
@@ -33,18 +39,18 @@
 							if (thereIsDatepicker()) {
 								if (dateDoesNotFulfillConstraints(date)) {
 									markDateAsInvalidBecauseOf('date');
-									return dateString;
+									return date;
 								}
 							}
 
 							if (thereIsTimepicker()) {
 								if (minutesDoNotMatchMinuteStep(date)) {
 									markDateAsInvalidBecauseOf('date');
-									return dateString;
+									return date;
 								}
 								if (hourDoesNotFulfillConstraints(date)) {
 									markDateAsInvalidBecauseOf('date');
-									return dateString;
+									return date;
 								}
 							}
 

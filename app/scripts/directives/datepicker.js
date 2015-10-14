@@ -13,7 +13,8 @@
 				ngModel: '=',
 				dateFormat: '@',
 				dateMin: '=',
-				dateMax: '='
+				dateMax: '=',
+				onChange: '&'
 			},
 			require: 'ngModel',
 			templateUrl: 'templates/dateTimePickerInput.html',

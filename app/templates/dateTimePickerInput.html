@@ -4,9 +4,10 @@
 		 ng-form="inputForm">
 		<input type="text"
 			   class="datepicker-input form-control"
-			   ng-model="ngModel"
+			   ng-model="dateToEdit"
 			   date-picker-input="pickType"
 			   input-constraints="constraints"
+			   ng-blur="onManualChange()"
 			   placeholder="{{constraints.placeholder}}"/>
 		<span class="input-group-btn">
 			<button class="btn btn-default"
