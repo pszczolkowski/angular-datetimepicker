@@ -107,6 +107,12 @@ There is possibility to define `placeholder` for directive like for any other `i
 <date-picker ng-model="date" placeholder="enter date" />
 ```
 
+### onChange
+It is possible to listen for date change by specifiing expression that will be executed when user changes date using picker or manually. In order to get updated value, it is neccessary to use special varable $value, for example:
+```html
+<date-picker ng-model="date" on-change="changed($value)" />
+```
+
 ## Validation
 It is possible to display validation errors of DateTimePicker input, so user could be informed about invalid data that hey entered manually. In order to get access to validation errors, one have to put DateTimePicker inside `form`. There are three types of validation errors that DateTimePicker can produce:
 * `required` - when there is no data and directive is marked with `required` attribute
