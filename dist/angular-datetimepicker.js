@@ -1,6 +1,6 @@
 /*
  * Angular DateTimePicker
- * version: 1.0.3
+ * version: 1.0.4
  */
 
 'use strict';
@@ -15,15 +15,26 @@ angular
 		.module('pszczolkowski.dateTimePicker')
 		.controller('DateTimePickerCtrl', DateTimePickerCtrl);
 
-	DateTimePickerCtrl.$inject = ['$scope', '$timeout', '$modal', 'dateTimePicker', 'dtpUtils'];
+	DateTimePickerCtrl.$inject = ['$scope', '$timeout', '$parse', '$modal', 'dateTimePicker', 'dtpUtils'];
 
-	function DateTimePickerCtrl($scope, $timeout, $modal, dateTimePicker, utils) {
+	function DateTimePickerCtrl($scope, $timeout, $parse, $modal, dateTimePicker, utils) {
+		$scope.dateToEdit = null;
 		$scope.pickDate = pickDate;
+		$scope.onManualChange = onManualChange;
 
 		$timeout(function () {
 			if ($scope.ngModel) {
 				$scope.ngModel = utils.roundTimeToMinuteStep($scope.ngModel, $scope.constraints.minuteStep || dateTimePicker.minuteStep);
+				$scope.dateToEdit = new Date($scope.ngModel.getTime());
+			} else {
+				$scope.dateToEdit = null;
 			}
+		});
+		
+		// it's necessary to detect external changes to model
+		// so valid date could be displayed
+		$scope.$watch('ngModel', function (ngModel) {
+			$scope.dateToEdit = ngModel;
 		});
 
 
@@ -52,8 +63,21 @@ angular
 					} else {
 						$scope.ngModel = date;
 					}
+					
+					$scope.onChange({$value: $scope.ngModel});
 				}
 			});
+		}
+		
+		function onManualChange() {
+			if (typeof $scope.dateToEdit === 'string') {
+				$scope.dateToEdit = $scope.ngModel;
+			} else if ($scope.ngModel !== $scope.dateToEdit) {
+				if (!$scope.ngModel || !$scope.dateToEdit || $scope.ngModel.getTime() !== $scope.dateToEdit.getTime()) {
+					$scope.ngModel = $scope.dateToEdit;
+					$scope.onChange({$value: $scope.ngModel});
+				}
+			}
 		}
 	}
 })();
@@ -217,6 +241,12 @@ angular
 			},
 			require: 'ngModel',
 			link: function(scope, elem, attributes, ngModelController) {
+				elem.bind('keydown', function (event) {
+					if (event.which === 13) {
+						elem.blur();
+					}
+				});
+				
 				if (ngModelController) {
 					ngModelController.$parsers.push(function(dateString) {
 						markDateAsValid();
@@ -235,18 +265,18 @@ angular
 							if (thereIsDatepicker()) {
 								if (dateDoesNotFulfillConstraints(date)) {
 									markDateAsInvalidBecauseOf('date');
-									return dateString;
+									return date;
 								}
 							}
 
 							if (thereIsTimepicker()) {
 								if (minutesDoNotMatchMinuteStep(date)) {
 									markDateAsInvalidBecauseOf('date');
-									return dateString;
+									return date;
 								}
 								if (hourDoesNotFulfillConstraints(date)) {
 									markDateAsInvalidBecauseOf('date');
-									return dateString;
+									return date;
 								}
 							}
 
@@ -332,7 +362,8 @@ angular
 				ngModel: '=',
 				dateFormat: '@',
 				dateMin: '=',
-				dateMax: '='
+				dateMax: '=',
+				onChange: '&'
 			},
 			require: 'ngModel',
 			templateUrl: 'templates/dateTimePickerInput.html',
@@ -368,7 +399,8 @@ angular.module('pszczolkowski.dateTimePicker')
 				dateMax: '=',
 				hourMin: '@',
 				hourMax: '@',
-				minuteStep: '='
+				minuteStep: '=',
+				onChange: '&'
 			},
 			require: 'ngModel',
 			templateUrl: 'templates/dateTimePickerInput.html',
@@ -671,7 +703,8 @@ angular.module('pszczolkowski.dateTimePicker')
 				dateFormat: '@',
 				hourMin: '@',
 				hourMax: '@',
-				minuteStep: '='
+				minuteStep: '=',
+				onChange: '&'
 			},
 			require: 'ngModel',
 			templateUrl: 'templates/dateTimePickerInput.html',
@@ -852,7 +885,7 @@ $templateCache.put('templates/dateTimePickerCalendar.html',
 
 
   $templateCache.put('templates/dateTimePickerInput.html',
-    "<div ng-class=\"{'has-error': inputForm.$invalid && inputForm.$dirty}\" ng-form=\"outerForm\"> <div class=\"input-group\" ng-form=\"inputForm\"> <input type=\"text\" class=\"datepicker-input form-control\" ng-model=\"ngModel\" date-picker-input=\"pickType\" input-constraints=\"constraints\" placeholder=\"{{constraints.placeholder}}\"> <span class=\"input-group-btn\"> <button class=\"btn btn-default\" type=\"button\" ng-click=\"pickDate()\"> <span class=\"glyphicon glyphicon-calendar\"></span> </button> </span> </div> </div>"
+    "<div ng-class=\"{'has-error': inputForm.$invalid && inputForm.$dirty}\" ng-form=\"outerForm\"> <div class=\"input-group\" ng-form=\"inputForm\"> <input type=\"text\" class=\"datepicker-input form-control\" ng-model=\"dateToEdit\" date-picker-input=\"pickType\" input-constraints=\"constraints\" ng-blur=\"onManualChange()\" placeholder=\"{{constraints.placeholder}}\"> <span class=\"input-group-btn\"> <button class=\"btn btn-default\" type=\"button\" ng-click=\"pickDate()\"> <span class=\"glyphicon glyphicon-calendar\"></span> </button> </span> </div> </div>"
   );
 
 
